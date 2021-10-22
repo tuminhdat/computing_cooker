@@ -1,2 +1,2 @@
 INSERT INTO users (LastName, FirstName, Age, Email, Description, UserName, UserPassword) 
-VALUES ('John', 'Smith', 30, 'john.smith@yahoo.com', 'I am a good cooker. Thanks', 'JohnSmith', '123456789');
+VALUES ('John', 'Smith', 30, 'john.smith@yahoo.com', 'I am a good cooker. Thanks', 'JohnSmith', '25f9e794323b453885f5181f1b624d0b');
