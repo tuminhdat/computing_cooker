@@ -12,9 +12,14 @@ public class userRowMapper_computingcooker implements RowMapper<user_model>{
 		// TODO Auto-generated method stub
 		user_model user = new user_model();
 		
-//		user.setId(rs.getInt("id"));
-//		user.setEmail(rs.getString("email"));
-//		user.setName(rs.getString("name"));
+		user.setId(rs.getInt("UserID"));
+		user.setEmail(rs.getString("Email"));
+		user.setFirstName(rs.getString("FirstName"));
+		user.setLastName(rs.getString("LastName"));
+		user.setAge(rs.getInt("Age"));
+		user.setDescription(rs.getString("Description"));
+		user.setUserName(rs.getString("UserName"));
+		user.setUserPassword(rs.getString("UserPassword"));
 		
 		return user;
 	}
