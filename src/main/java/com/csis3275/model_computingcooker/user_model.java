@@ -1,63 +1,60 @@
 package com.csis3275.model_computingcooker;
 
 public class user_model {
-	private int id;
-	private String firstName;
-	private String lastName;
-	private int age;
-	private String email;
-	private String description;
-	private String userName;
-	private String userPassword;
-	public int getId() {
-		return id;
+	private int UserID;
+	private String LastName;
+	private String FirstName;
+	private int Age;
+	private String Email;
+	private String Description;
+	private String UserName;
+	private String UserPassword;
+	public int getUserID() {
+		return UserID;
 	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setUserID(int userID) {
+		UserID = userID;
 	}
 	public String getLastName() {
-		return lastName;
+		return LastName;
 	}
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		LastName = lastName;
+	}
+	public String getFirstName() {
+		return FirstName;
+	}
+	public void setFirstName(String firstName) {
+		FirstName = firstName;
 	}
 	public int getAge() {
-		return age;
+		return Age;
 	}
 	public void setAge(int age) {
-		this.age = age;
+		Age = age;
 	}
 	public String getEmail() {
-		return email;
+		return Email;
 	}
 	public void setEmail(String email) {
-		this.email = email;
+		Email = email;
 	}
 	public String getDescription() {
-		return description;
+		return Description;
 	}
 	public void setDescription(String description) {
-		this.description = description;
+		Description = description;
 	}
 	public String getUserName() {
-		return userName;
+		return UserName;
 	}
 	public void setUserName(String userName) {
-		this.userName = userName;
+		UserName = userName;
 	}
 	public String getUserPassword() {
-		return userPassword;
+		return UserPassword;
 	}
 	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
+		UserPassword = userPassword;
 	}
-	
-	
-	
 }
