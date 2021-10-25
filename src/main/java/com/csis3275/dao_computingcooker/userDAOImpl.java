@@ -25,9 +25,7 @@ public class userDAOImpl {
 	}
 
 	@SuppressWarnings("deprecation")
-	public user_model findUser(String userName) {
-		return jdbcTemplate.queryForObject(SQL_FIND_USER, new Object[] { userName },
-				new userRowMapper_computingcooker());
+	public user_model getUserByUserName(String userName) {
+		return jdbcTemplate.queryForObject(SQL_FIND_USER, new Object[] { userName }, new userRowMapper_computingcooker());
 	}
-
 }
