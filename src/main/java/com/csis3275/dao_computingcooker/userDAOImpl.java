@@ -20,7 +20,7 @@ public class userDAOImpl {
 
 	// SQL Queries
 	private final String SQL_GET_ALL_USERS = "SELECT * FROM users";
-	private final String SQL_CREATE_USER = "INSERT INTO users (LastName, FirstName, Age, Email, Description, UserName, UserPassword) VALUES (?, ?)";
+	private final String SQL_CREATE_USER = "INSERT INTO users (LastName, FirstName, Age, Email, Description, UserName, UserPassword) VALUES (?, ?, ?, ?, ?, ?, ?)";
 	private final String SQL_DELETE_USER = "DELETE FROM users WHERE id = ?";
 	private final String SQL_UPDATE_USER = "UPDATE users set LastName = ?, FirstName = ?, Age = ?, Email =? , Description = ?, UserName = ?, UserPassword = ? WHERE id = ?";
 	
