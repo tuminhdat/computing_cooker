@@ -21,7 +21,7 @@
 	<div class="container">
 
 		<h3>Edit User</h3>
-		<form:form action="${pageContext.request.contextPath}/users/edit/"
+		<form:form action="${pageContext.request.contextPath}/userInfo/edit/"
 			cssClass="form-horizontal" method="post" modelAttribute="user">
 
 			<div class="form-group">

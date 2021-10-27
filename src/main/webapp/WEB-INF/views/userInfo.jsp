@@ -44,7 +44,11 @@
 			<td>${user.getUserName()}</td>
 		</tr>
 	</table>
-
+	
+	<form action="/userInfo/edit" method="post">
+		<input type="submit" value="Edit Profile" />
+	</form>
+	
 	<form action="/invalidate/session" method="post">
 		<input type="submit" value="Log out" />
 	</form>
