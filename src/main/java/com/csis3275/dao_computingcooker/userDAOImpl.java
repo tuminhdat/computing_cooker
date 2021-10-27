@@ -16,8 +16,9 @@ public class userDAOImpl {
 	JdbcTemplate jdbcTemplate;
 
 	// SQL Queries
-	private final String SQL_FIND_USER = "SELECT * FROM users WHERE UserName = ?";
+	private final String SQL_FIND_USER = "SELECT * FROM users WHERE UserName = ? AND UserPassword = ?";
 	private final String SQL_CHECK_USER_EXIST = "SELECT COUNT (*) FROM users WHERE UserName = ?";
+	private final String SQL_UPDATE_USER_PROFILE = "UPDATE users SET LastName = ?, FirstName = ?, Age = ?, Email = ?, Description = ? WHERE UserName = ? AND UserPassword = ?";
 
 	// Default Constructor
 	@Autowired
@@ -26,11 +27,18 @@ public class userDAOImpl {
 	}
 
 	@SuppressWarnings("deprecation")
-	public user_model getUserByUserName(String userName) {
-		return jdbcTemplate.queryForObject(SQL_FIND_USER, new Object[] { userName }, new userRowMapper_computingcooker());
+	public user_model getUserByUserNamePassword(String userName, String password) {
+		return jdbcTemplate.queryForObject(SQL_FIND_USER, new Object[] { userName, password },
+				new userRowMapper_computingcooker());
 	}
-	
+
+	@SuppressWarnings("deprecation")
 	public int checkExistUser(String userName) {
 		return jdbcTemplate.queryForObject(SQL_CHECK_USER_EXIST, new Object[] { userName }, Integer.class);
+	}
+
+	public boolean updateUserInfo(user_model user) {
+		return jdbcTemplate.update(SQL_UPDATE_USER_PROFILE, user.getLastName(), user.getFirstName(), user.getAge(),
+				user.getEmail(), user.getDescription(), user.getUserName(), user.getUserPassword()) > 0;
 	}
 }
