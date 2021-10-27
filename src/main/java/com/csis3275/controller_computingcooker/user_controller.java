@@ -3,10 +3,9 @@ package com.csis3275.controller_computingcooker;
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-
 import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,25 +15,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.csis3275.dao_computingcooker.userDAOImpl;
-import com.csis3275.model_computingcooker.user_model;
-
-// for key
-
-import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import com.csis3275.model_computingcooker.user_model;
 
 @Controller
 public class user_controller {
+
 	@Autowired
-	userDAOImpl userDAOImpl;
+	public userDAOImpl userDAO;
 
 	public user_model setupAddForm() {
-
 		return new user_model();
 	}
+	
+	@GetMapping("/")
+	public String startPage() {
+		return "index";
+	}
 
-	@RequestMapping("/")
+	@GetMapping("/loginform")
+	public String loginPage(Model model, HttpSession session) {
+		model.addAttribute("message", session.getAttribute("loginmessage"));
+		System.out.println(session.getAttribute("loginmessage"));
+		model.addAttribute("user", new user_model());
+		return "login";
+	}
+
+	@PostMapping("/login")
+	public String doLogin(@ModelAttribute("user") user_model findUser, Model model, HttpSession session) {
+		
+		String password = getMd5(findUser.getUserPassword());
+
+		user_model currentUser = userDAO.getUserByUserNamePassword(findUser.getUserName(), password);
+
+		if (currentUser == null) {
+			model.addAttribute("user", new user_model());
+			session.setAttribute("loginmessage", "Your's username or password is invalid");
+			return "redirect:/loginform";
+		} else {
+			session.removeAttribute("loginmessage");
+			session.setAttribute("userid", currentUser.getUserID());
+			model.addAttribute("message", "Hello " + currentUser.getFirstName() + " " + currentUser.getLastName());
+			return "index";
+		}
+	}
+
+	@RequestMapping("/register")
 	public String showUsers(Model model, HttpSession session) {
 		model.addAttribute("user", new user_model());
 		model.addAttribute("loginmessage", session.getAttribute("loginmessage"));
@@ -48,30 +74,25 @@ public class user_controller {
 
 	@PostMapping("/users/create")
 	public String createUsers(@ModelAttribute("user") user_model createUser, Model model, HttpSession session) {
-
-		// to make key as hashing key
-		
-		// Add the student
-
-		if (userDAOImpl.checkExistUser(createUser.getUserName()) > 0) {
+		if (userDAO.checkExistUser(createUser.getUserName()) > 0) {
 			session.setAttribute("loginmessage", "UserName is already exist.");
-			
-			
-			return "redirect:/";
+			return "redirect:/register";
 		}
-		if (createUser.getUserPassword() == null || createUser.getUserPassword().isEmpty()) {
-			session.setAttribute("passwordmessage", "Your password cannot be empty");
-			return "redirect:/";
-		}
+		
 		if (createUser.getUserName() == null || createUser.getUserName().isEmpty()) {
 			session.setAttribute("usernamemessage", "Your UserName cannot be empty");
-			return "redirect:/";
+			return "redirect:/register";
 		}
+		
+		if (createUser.getUserPassword() == null || createUser.getUserPassword().isEmpty()) {
+			session.setAttribute("passwordmessage", "Your password cannot be empty");
+			return "redirect:/register";
+		}
+		
 		createUser.setUserPassword(getMd5(createUser.getUserPassword()));
-		userDAOImpl.createUser(createUser);
+		userDAO.createUser(createUser);
 		session.removeAttribute("loginmessage");
-
-		return "index";
+		return "redirect:/loginform";
 	}
 
 	// hashing key
@@ -101,5 +122,4 @@ public class user_controller {
 			throw new RuntimeException(e);
 		}
 	}
-
 }

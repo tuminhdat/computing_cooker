@@ -18,59 +18,42 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
-<title>User List</title>
+<title>Students List</title>
+<style type="text/css">
+.error {
+	color: red;
+	font-style: italics;
+}
+</style>
 </head>
 <body>
+
 	<div class="container">
-		<h1>Registration form</h1>
+		<h3>Login Form</h3>
 
-		<table class="table table-striped">
+		<form:form action="/login" method="POST" class="form-horizontal"
+			modelAttribute="user">
 
-			</tbody>
-		</table>
-		<h3>Required Information</h3>
-		<form:form action="${pageContext.request.contextPath}/users/create"
-			method="POST" cssClass="form-horizontal" modelAttribute="user">
+			<p class="error">${message}</p>
 
-			<div class="mb-3">
-				<p>${loginmessage}</p>
-				<p>${usernamemessage}</p>
-				User Name
-				<form:input type="text" class="form-control" path="userName" />
-			</div>
-			<div class="mb-3">
-			<p>${passwordmessage}</p>
-				User Password
-				<form:input type="password" class="form-control" path="userPassword" />
-			</div>
-			<div class="mb-3">
-				First Name
-				<form:input type="text" class="form-control" path="firstName" />
-			</div>
+			<label for="UserName"> UserName <input type="text"
+				id="UserName" name="UserName" placeholder="Required UserName"
+				required>
+			</label>
 
-			<div class="mb-3">
-				Last Name
-				<form:input type="text" class="form-control" path="lastName" />
-			</div>
+			<br>
 
-			<div class="mb-3">
-				Age
-				<form:input type="Number" class="form-control" path="age" />
-			</div>
-			<div class="mb-3">
-				Email
-				<form:input type="email" class="form-control" path="email" />
-			</div>
-			<div class="mb-3">
-				Description
-				<form:input type="text" class="form-control" path="description" />
-			</div>
+			<label for="UserPassword"> Password <input type="password"
+				id="UserPassword" name="UserPassword"
+				placeholder="Required Password" required>
+			</label>
 
+			<br>
 
-			<form:button type="submit" cssClass="btn btn-primary">Submit</form:button>
+			<form:button type="submit" class="btn btn-primary">Submit</form:button>
 		</form:form>
+		<a href="/register">Register</a>
 	</div>
-
 
 	<!-- Optional JavaScript; choose one of the two! -->
 
