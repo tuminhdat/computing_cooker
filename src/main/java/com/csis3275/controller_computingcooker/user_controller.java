@@ -36,7 +36,6 @@ public class user_controller {
 	@GetMapping("/loginform")
 	public String loginPage(Model model, HttpSession session) {
 		model.addAttribute("message", session.getAttribute("loginmessage"));
-		System.out.println(session.getAttribute("loginmessage"));
 		model.addAttribute("user", new user_model());
 		return "login";
 	}
@@ -54,9 +53,31 @@ public class user_controller {
 			return "redirect:/loginform";
 		} else {
 			session.removeAttribute("loginmessage");
-			session.setAttribute("userid", currentUser.getUserID());
+			session.setAttribute("userName", currentUser.getUserName());
+			session.setAttribute("password", getMd5(findUser.getUserPassword()));
 			model.addAttribute("message", "Hello " + currentUser.getFirstName() + " " + currentUser.getLastName());
-			return "index";
+			return "redirect:/userInfo";
+		}
+	}
+	
+	@GetMapping("/userInfo")
+	public String showUser(Model model, HttpSession session) {
+
+		String userName = (String) session.getAttribute("userName");
+		String password = (String) session.getAttribute("password");
+
+		if (userName.equals("") || password.equals("")) {
+			return "redirect:/";
+		} else {
+			if (userDAO.checkExistUser(userName) > 0) {
+				user_model user = userDAO.getUserByUserNamePassword(userName, password);
+				model.addAttribute("user", user);
+				return "userInfo";
+
+			} else {
+				return "redirect:/loginform";
+			}
+
 		}
 	}
 
@@ -121,5 +142,12 @@ public class user_controller {
 		catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	
+	@PostMapping("/invalidate/session")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/";
 	}
 }
