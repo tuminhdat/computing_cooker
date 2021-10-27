@@ -2,18 +2,14 @@ package com.csis3275.controller_computingcooker;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 import com.csis3275.dao_computingcooker.userDAOImpl;
 import java.security.MessageDigest;
 import com.csis3275.model_computingcooker.user_model;
@@ -143,8 +139,30 @@ public class user_controller {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	
+
+	@PostMapping("/userInfo/editform")
+	public String getEditform(Model model, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		String password = (String) session.getAttribute("password");
+		model.addAttribute("user", userDAO.getUserByUserNamePassword(userName, password));
+		return "editform";
+	}
+
+	@PostMapping("/userInfo/edit")
+	public String editUserInfo(@ModelAttribute("user") user_model user, Model model, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		String password = (String) session.getAttribute("password");
+
+		user.setUserName(userName);
+		user.setUserPassword(password);
+
+		userDAO.updateUserInfo(user);
+
+		model.addAttribute("user", user);
+
+		return "redirect:/userInfo";
+	}
+
 	@PostMapping("/invalidate/session")
 	public String logout(HttpSession session) {
 		session.invalidate();

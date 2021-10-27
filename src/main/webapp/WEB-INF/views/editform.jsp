@@ -2,6 +2,8 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -16,42 +18,47 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
+<title>User List</title>
 </head>
 <body>
-	<table class="table table-striped">
-		<tr>
-			<th>LastName</th>
-			<td>${user.getLastName()}</td>
-		</tr>
-		<tr>
-			<th>FirstName</th>
-			<td>${user.getFirstName()}</td>
-		</tr>
-		<tr>
-			<th>Age</th>
-			<td>${user.getAge()}</td>
-		</tr>
-		<tr>
-			<th>Email</th>
-			<td>${user.getEmail()}</td>
-		</tr>
-		<tr>
-			<th>Description</th>
-			<td>${user.getDescription()}</td>
-		</tr>
-		<tr>
-			<th>UserName</th>
-			<td>${user.getUserName()}</td>
-		</tr>
-	</table>
-	
-	<form action="/userInfo/editform" method="POST">
-		<input type="submit" value="Edit Profile" />
-	</form>
-	
-	<form action="/invalidate/session" method="post">
-		<input type="submit" value="Log out" />
-	</form>
+	<div class="container">
+		<h1>Edit form</h1>
+
+		<table class="table table-striped">
+
+			</tbody>
+		</table>
+		<h3>Information</h3>
+		<form:form action="${pageContext.request.contextPath}/userInfo/edit"
+			method="POST" cssClass="form-horizontal" modelAttribute="user">
+			<div class="mb-3">
+				First Name
+				<form:input type="text" name="FirstName" class="form-control" value="${user.getFirstName()}" path="firstName" />
+			</div>
+
+			<div class="mb-3">
+				Last Name
+				<form:input type="text" name="LastName" class="form-control" value="${user.getLastName()}" path="lastName" />
+			</div>
+
+			<div class="mb-3">
+				Age
+				<form:input type="Number" name="Age" class="form-control" value="${user.getAge()}" path="age" />
+			</div>
+			<div class="mb-3">
+				Email
+				<form:input type="email" name="Email" class="form-control" value="${user.getEmail()}" path="email" />
+			</div>
+			<div class="mb-3">
+				Description
+				<form:input type="text" name="Description" class="form-control" value="${user.getDescription()}" path="description" />
+			</div>
+
+
+			<form:button type="submit" class="btn btn-primary">Submit</form:button>
+		</form:form>
+	</div>
+
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

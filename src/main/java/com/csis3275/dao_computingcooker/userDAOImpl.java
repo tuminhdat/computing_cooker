@@ -22,6 +22,8 @@ public class userDAOImpl {
 	private final String SQL_CHECK_EXIST_USERNAME = "SELECT COUNT (*) FROM users WHERE UserName = ?";
 	private final String FIND_USER = "SELECT * FROM users WHERE UserName = ? AND UserPassword = ?";
 	private final String CHECK_EXIST_USER = "SELECT COUNT (UserID) FROM users WHERE UserName = ? AND UserPassword = ?";
+	private final String SQL_UPDATE_USER_PROFILE = "UPDATE users SET LastName = ?, FirstName = ?, Age = ?, Email = ?, Description = ? WHERE UserName = ? AND UserPassword = ?";
+
 
 	// Default Constructor
 	@Autowired
@@ -50,6 +52,11 @@ public class userDAOImpl {
 	public int checkExistUser(String username) {
 		int result = jdbcTemplate.queryForObject(SQL_CHECK_EXIST_USERNAME, new Object[] {username}, Integer.class);
 		return result;
+	}
+	
+	public boolean updateUserInfo(user_model user) {
+		return jdbcTemplate.update(SQL_UPDATE_USER_PROFILE, user.getLastName(), user.getFirstName(), user.getAge(),
+				user.getEmail(), user.getDescription(), user.getUserName(), user.getUserPassword()) > 0;
 	}
 
 }
