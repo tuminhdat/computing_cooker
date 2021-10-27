@@ -23,42 +23,42 @@ public class user_controller {
 
 	@GetMapping("/userInfo")
 	public String showUser(Model model, HttpSession session) {
-		
+
 		String userName = (String) session.getAttribute("userName");
 		String password = (String) session.getAttribute("password");
-		
+
 		if (userName.equals("") || password.equals("")) {
-			return "redirect:/login";
-		} 
-		else {
-			user_model user = userDAO.getUserByUserName(userName);
-			if (user != null) {
-				ArrayList<user_model> users = new ArrayList<user_model>();
-				users.add(user);
-				model.addAttribute("users", users);
+			return "redirect:/";
+		} else {
+			if (userDAO.checkExistUser(userName) > 0) {
+				user_model user = userDAO.getUserByUserName(userName);
+				model.addAttribute("user", user);
 				return "userInfo";
+
+			} else {
+				return "redirect:/";
 			}
-			else {
-				return "redirect:/login";
-			}
+
 		}
 	}
-	
+
 	@RequestMapping("/")
 	public String home(@ModelAttribute("user") user_model createStudent, Model model, HttpSession session) {
 		return "login";
 	}
-	
+
 	@PostMapping("/login")
-	public String login(@ModelAttribute("user") user_model createStudent, HttpSession session) {
+	public String login(@ModelAttribute("user") user_model createStudent, Model model, HttpSession session) {
 		session.setAttribute("userName", createStudent.getUserName());
 		session.setAttribute("password", createStudent.getUserPassword());
+		
+		
 		return "redirect:/userInfo";
 	}
 
 	@PostMapping("/invalidate/session")
 	public String logout(HttpSession session) {
 		session.invalidate();
-		return "redirect:/login";
+		return "redirect:/";
 	}
 }

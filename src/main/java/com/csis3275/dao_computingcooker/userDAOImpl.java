@@ -17,6 +17,7 @@ public class userDAOImpl {
 
 	// SQL Queries
 	private final String SQL_FIND_USER = "SELECT * FROM users WHERE UserName = ?";
+	private final String SQL_CHECK_USER_EXIST = "SELECT COUNT (*) FROM users WHERE UserName = ?";
 
 	// Default Constructor
 	@Autowired
@@ -27,5 +28,9 @@ public class userDAOImpl {
 	@SuppressWarnings("deprecation")
 	public user_model getUserByUserName(String userName) {
 		return jdbcTemplate.queryForObject(SQL_FIND_USER, new Object[] { userName }, new userRowMapper_computingcooker());
+	}
+	
+	public int checkExistUser(String userName) {
+		return jdbcTemplate.queryForObject(SQL_CHECK_USER_EXIST, new Object[] { userName }, Integer.class);
 	}
 }

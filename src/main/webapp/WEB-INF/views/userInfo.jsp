@@ -18,37 +18,33 @@
 
 </head>
 <body>
-	<%
-	
-	%>
 	<table class="table table-striped">
-			<thead>
-				
-				<th>LastName</th>
-				<th>FirstName</th>
-				<th>Age</th>
-				<th>Email</th>
-				<th>Description</th>
-				<th>UserName</th>
-				<th>UserPassword</th>
-				
-			</thead>
+		<tr>
+			<th>LastName</th>
+			<td>${user.getLastName()}</td>
+		</tr>
+		<tr>
+			<th>FirstName</th>
+			<td>${user.getFirstName()}</td>
+		</tr>
+		<tr>
+			<th>Age</th>
+			<td>${user.getAge()}</td>
+		</tr>
+		<tr>
+			<th>Email</th>
+			<td>${user.getEmail()}</td>
+		</tr>
+		<tr>
+			<th>Description</th>
+			<td>${user.getDescription()}</td>
+		</tr>
+		<tr>
+			<th>UserName</th>
+			<td>${user.getUserName()}</td>
+		</tr>
+	</table>
 
-			<tbody>
-				<c:forEach var="s" items="${users}">
-					<tr>
-						<td>${s.lastName}</td>
-					    <td>${s.firstName}</td>
-						<td>${s.age}</td>
-						<td>${s.email}</td>
-						<td>${s.description}</td>
-						<td>${s.userName}</td>
-					</tr>
-
-				</c:forEach>
-			</tbody>
-		</table>
-	
 	<form action="/invalidate/session" method="post">
 		<input type="submit" value="Log out" />
 	</form>
