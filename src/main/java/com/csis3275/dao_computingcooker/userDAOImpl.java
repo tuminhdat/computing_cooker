@@ -19,6 +19,7 @@ public class userDAOImpl {
 
 	// SQL Queries
 	private final String SQL_CREATE_USER = "INSERT INTO users (LastName, FirstName, Age, Email, Description, UserName, UserPassword) VALUES (?, ?, ?, ?, ?, ?, ?)";
+	private final String SQL_CHECK_EXIST_USERNAME = "SELECT COUNT (*) FROM users WHERE UserName = ?";
 
 	// Default Constructor
 	@Autowired
@@ -30,6 +31,12 @@ public class userDAOImpl {
 	public boolean createUser(user_model newUser) {
 		return jdbcTemplate.update(SQL_CREATE_USER, newUser.getLastName(), newUser.getFirstName(), newUser.getAge(),
 				newUser.getEmail(), newUser.getDescription(), newUser.getUserName(), newUser.getUserPassword()) > 0;
+	}
+	
+	// Check if username is already exist in database
+	public int checkExistUser(String username) {
+		int result = jdbcTemplate.queryForObject(SQL_CHECK_EXIST_USERNAME, new Object[] {username}, Integer.class);
+		return result;
 	}
 
 }

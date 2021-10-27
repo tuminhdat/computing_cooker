@@ -35,9 +35,14 @@ public class user_controller {
 	}
 
 	@RequestMapping("/")
-	public String showUsers(Model model) {
+	public String showUsers(Model model, HttpSession session) {
 		model.addAttribute("user", new user_model());
-
+		model.addAttribute("loginmessage", session.getAttribute("loginmessage"));
+		model.addAttribute("passwordmessage", session.getAttribute("passwordmessage"));
+		model.addAttribute("usernamemessage", session.getAttribute("usernamemessage"));
+		session.removeAttribute("loginmessage");
+		session.removeAttribute("passwordmessage");
+		session.removeAttribute("usernamemessage");
 		return "registration";
 	}
 
@@ -45,9 +50,26 @@ public class user_controller {
 	public String createUsers(@ModelAttribute("user") user_model createUser, Model model, HttpSession session) {
 
 		// to make key as hashing key
-		createUser.setUserPassword(getMd5(createUser.getUserPassword()));
+		
 		// Add the student
+
+		if (userDAOImpl.checkExistUser(createUser.getUserName()) > 0) {
+			session.setAttribute("loginmessage", "UserName is already exist.");
+			
+			
+			return "redirect:/";
+		}
+		if (createUser.getUserPassword() == null || createUser.getUserPassword().isEmpty()) {
+			session.setAttribute("passwordmessage", "Your password cannot be empty");
+			return "redirect:/";
+		}
+		if (createUser.getUserName() == null || createUser.getUserName().isEmpty()) {
+			session.setAttribute("usernamemessage", "Your UserName cannot be empty");
+			return "redirect:/";
+		}
+		createUser.setUserPassword(getMd5(createUser.getUserPassword()));
 		userDAOImpl.createUser(createUser);
+		session.removeAttribute("loginmessage");
 
 		return "index";
 	}

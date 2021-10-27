@@ -23,15 +23,7 @@
 <body>
 	<div class="container">
 		<h1>Registration form</h1>
-		<c:if test="${ messages !=null }">
 
-			<c:forEach var="message" items="${messages}">
-
-				<div class="alert alert-success fade show" role="alert">${message}</div>
-
-			</c:forEach>
-
-		</c:if>
 		<table class="table table-striped">
 
 			</tbody>
@@ -41,15 +33,28 @@
 			method="POST" cssClass="form-horizontal" modelAttribute="user">
 
 			<div class="mb-3">
-				last Name
-				<form:input type="text" class="form-control" path="lastName" />
+				<p>${loginmessage}</p>
+				<p>${usernamemessage}</p>
+				User Name
+				<form:input type="text" class="form-control" path="userName" />
 			</div>
 			<div class="mb-3">
-				first Name
+			<p>${passwordmessage}</p>
+				User Password
+				<form:input type="text" class="form-control" path="userPassword" />
+			</div>
+			<div class="mb-3">
+				First Name
 				<form:input type="text" class="form-control" path="firstName" />
 			</div>
+
 			<div class="mb-3">
-				age
+				Last Name
+				<form:input type="text" class="form-control" path="lastName" />
+			</div>
+
+			<div class="mb-3">
+				Age
 				<form:input type="Number" class="form-control" path="age" />
 			</div>
 			<div class="mb-3">
@@ -57,17 +62,10 @@
 				<form:input type="email" class="form-control" path="email" />
 			</div>
 			<div class="mb-3">
-				description
+				Description
 				<form:input type="text" class="form-control" path="description" />
 			</div>
-			<div class="mb-3">
-				user Name
-				<form:input type="text" class="form-control" path="userName" />
-			</div>
-			<div class="mb-3">
-				user Password
-				<form:input type="text" class="form-control" path="userPassword" />
-			</div>
+
 
 			<form:button type="submit" cssClass="btn btn-primary">Submit</form:button>
 		</form:form>
