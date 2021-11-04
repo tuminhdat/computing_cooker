@@ -5,11 +5,11 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class User_RowMapper_comment implements RowMapper<User_model_comment> {
+public class CommentRowMapper_computingcooker implements RowMapper<Comment_model> {
 
 	@Override
-	public User_model_comment mapRow(ResultSet rs, int rowNum) throws SQLException {
-		User_model_comment userComment = new User_model_comment();
+	public Comment_model mapRow(ResultSet rs, int rowNum) throws SQLException {
+		Comment_model userComment = new Comment_model();
 		
 		userComment.setCommentID(rs.getInt("CommentID"));
 		userComment.setContent(rs.getString("Content"));

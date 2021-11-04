@@ -1,6 +1,6 @@
 package com.csis3275.model_computingcooker;
 
-public class User_model_comment {
+public class Comment_model {
 
 	
 	private int CommentID;
