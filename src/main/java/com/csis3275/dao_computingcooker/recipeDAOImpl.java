@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import com.csis3275.model_computingcooker.recipeRowMapper_computingcooker;
-import com.csis3275.model_computingcooker.recipe_model;
+import com.csis3275.model_computingcooker.RecipeRowMapper_computingcooker;
+import com.csis3275.model_computingcooker.Recipe_model;
 
 @Service
 public class recipeDAOImpl {
@@ -28,7 +28,7 @@ public class recipeDAOImpl {
 			jdbcTemplate = new JdbcTemplate(dataSource);
 		}
 
-		public boolean createUser(recipe_model newRecipe) {
+		public boolean createUser(Recipe_model newRecipe) {
 			return jdbcTemplate.update(SQL_CREATE_RECIPE, 
 					newRecipe.getRecipeTitle(), 
 					newRecipe.getDescription(), 
@@ -46,7 +46,7 @@ public class recipeDAOImpl {
 			return (jdbcTemplate.queryForObject(SELECT_RECIPE_BY_ID, new Object[] {id}, Integer.class)) > 0;
 		}
 		
-		public boolean updateUserInfo(recipe_model recipe) {
+		public boolean updateUserInfo(Recipe_model recipe) {
 			return jdbcTemplate.update(SQL_UPDATE_RECIPE, 
 					recipe.getRecipeTitle(), 
 					recipe.getDescription(), 
