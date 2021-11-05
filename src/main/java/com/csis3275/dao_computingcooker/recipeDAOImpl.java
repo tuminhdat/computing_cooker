@@ -1,5 +1,7 @@
 package com.csis3275.dao_computingcooker;
 
+import java.util.ArrayList;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,13 @@ public class recipeDAOImpl {
 		JdbcTemplate jdbcTemplate;
 
 		// SQL Queries
+		private final String SQL_GET_ALL_RECIPES = "SELECT * FROM recipes";
 		private final String SQL_CREATE_RECIPE = "INSERT INTO recipes (RecipeTitle, Description, PrepTime, TotalTime, NumServe, Ingredient, Preparation, Author, UserID) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		private final String SELECT_RECIPE_BY_ID = "SELECT * FROM recipes WHERE RecipeID = ?";
 		private final String SQL_UPDATE_RECIPE = "UPDATE recipes SET RecipeTitle = ?, Description = ?, PrepTime = ?, TotalTime = ?, NumServe = ?, Ingredient = ?, Preparation = ?, Author = ?, UserID = ?"
 				+ "WHERE RecipeID = ?";
+		private final String SQL_DELETE_RECIPE = "DELETE FROM recipe WHERE RecipeID = ?";
 
 
 		// Default Constructor
@@ -27,8 +31,16 @@ public class recipeDAOImpl {
 		public recipeDAOImpl(DataSource dataSource) {
 			jdbcTemplate = new JdbcTemplate(dataSource);
 		}
+		
+		public ArrayList<recipe_model> getAllRecipes()	{
+			ArrayList<recipe_model> allRecipes = new ArrayList<recipe_model>();
+			
+			allRecipes = (ArrayList<recipe_model>) jdbcTemplate.query(SQL_GET_ALL_RECIPES, new recipeRowMapper_computingcooker());
+			
+			return allRecipes;
+		}
 
-		public boolean createUser(recipe_model newRecipe) {
+		public boolean createRecipe(recipe_model newRecipe) {
 			return jdbcTemplate.update(SQL_CREATE_RECIPE, 
 					newRecipe.getRecipeTitle(), 
 					newRecipe.getDescription(), 
@@ -41,12 +53,16 @@ public class recipeDAOImpl {
 					newRecipe.getUserID()) > 0;
 		}
 		
+		public boolean deleteRecipe(int id) {
+			return jdbcTemplate.update(SQL_DELETE_RECIPE, id) > 0;
+		}
+		
 		@SuppressWarnings("deprecation")
 		public boolean getRecipeById(int id) {
 			return (jdbcTemplate.queryForObject(SELECT_RECIPE_BY_ID, new Object[] {id}, Integer.class)) > 0;
 		}
 		
-		public boolean updateUserInfo(recipe_model recipe) {
+		public boolean updateRecipe(recipe_model recipe) {
 			return jdbcTemplate.update(SQL_UPDATE_RECIPE, 
 					recipe.getRecipeTitle(), 
 					recipe.getDescription(), 
