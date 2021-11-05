@@ -39,8 +39,8 @@ CREATE TABLE menus (
 );
 
 CREATE TABLE menurecipe (
-	CommentID int,
+	RecipeID int,
 	MenuID int,
 	RecipeTitle varchar(255),
-	PRIMARY KEY (CommentID, MenuID)
+	PRIMARY KEY (RecipeID, MenuID)
 );
