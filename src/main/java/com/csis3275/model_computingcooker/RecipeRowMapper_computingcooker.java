@@ -5,12 +5,12 @@ import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
 
-public class recipeRowMapper_computingcooker implements RowMapper<recipe_model> {
+public class RecipeRowMapper_computingcooker implements RowMapper<Recipe_model> {
 	
 	@Override
-	public recipe_model mapRow(ResultSet rs, int rowNum) throws SQLException {
+	public Recipe_model mapRow(ResultSet rs, int rowNum) throws SQLException {
 		// TODO Auto-generated method stub
-		recipe_model recipe = new recipe_model();
+		Recipe_model recipe = new Recipe_model();
 		
 		recipe.setRecipeID(rs.getInt("RecipeID"));
 		recipe.setRecipeTitle(rs.getString("RecipeTitle"));

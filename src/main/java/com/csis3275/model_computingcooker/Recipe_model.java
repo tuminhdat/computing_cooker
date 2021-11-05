@@ -1,6 +1,6 @@
 package com.csis3275.model_computingcooker;
 
-public class recipe_model {
+public class Recipe_model {
 	private int recipeID;
 	private String recipeTitle;
 	private String description;
