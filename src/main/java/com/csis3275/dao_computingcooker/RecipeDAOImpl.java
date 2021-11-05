@@ -39,7 +39,7 @@ public class RecipeDAOImpl {
 			
 			return allRecipes;
 		}
-
+		
 		public boolean createRecipe(Recipe_model newRecipe) {
 			return jdbcTemplate.update(SQL_CREATE_RECIPE, 
 					newRecipe.getRecipeTitle(), 
