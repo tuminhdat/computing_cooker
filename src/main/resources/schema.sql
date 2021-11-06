@@ -20,7 +20,8 @@ CREATE TABLE recipes (
 	NumServe int,
 	Ingredient varchar(max) NOT NULL,
 	Preparation varchar(max) NOT NULL,
-	Author varchar(max)
+	Author varchar(max),
+	UserID int
 );
 
 CREATE TABLE comments (
