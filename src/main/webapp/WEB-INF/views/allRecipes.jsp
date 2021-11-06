@@ -59,7 +59,6 @@
 						<td>${s.ingredient}</td>
 						<td>${s.preparation}</td>
 						<td>${s.author}</td>
-						<td>${s.userID}</td>
 					</tr>
 				</c:forEach>
 			</tbody>
