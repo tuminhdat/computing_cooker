@@ -19,7 +19,7 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
-<title>Course Request Form</title>
+<title>Recipe List</title>
 </head>
 <body>
 	<div class="container">
@@ -33,7 +33,7 @@
 			</c:forEach>
 
 		</c:if>
-
+		<h2>Recipe List</h2>
 		<table class="table table-striped">
 			<thead>
 				<th>Recipe Title</th>
@@ -44,6 +44,8 @@
 				<th>Ingredient</th>
 				<th>Preparation</th>
 				<th>Author</th>
+				<th>Delete</th>
+				<th>Edit</th>
 			</thead>
 
 			<tbody>
@@ -59,43 +61,65 @@
 						<td>${s.ingredient}</td>
 						<td>${s.preparation}</td>
 						<td>${s.author}</td>
+						<%
+						String userName = (String) session.getAttribute("userName");
+						%>
+						<c:set var = "userName" value = "<%=userName %>" />
+						<c:choose>
+							<c:when test="${userName == s.author}">
+								<td><a href="${pageContext.request.contextPath}/recipe/delete/?id=${s.recipeID}" class="btn btn-danger">Delete</a></td>
+								<td><a href="${pageContext.request.contextPath}/recipe/edit/?id=${s.recipeID}" class="btn btn-success">Edit</a></td>
+							</c:when>
+							<c:otherwise>
+								<td>Invalid</td>
+								<td>Invalid</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
+		
+		
+		<h2>Add New Recipe</h2>
+		<form:form action="${pageContext.request.contextPath}/recipe/add"
+			method="POST" class="form-horizontal" modelAttribute="recipe">
 
-		<form:form action="${pageContext.request.contextPath}/requests_dtu_90/add"
-			method="POST" class="form-horizontal" modelAttribute="request">
-
 			<div class="mb-3">
-				Name
-				<form:input type="text" class="form-control" path="name" />
+				Recipe Title
+				<form:input type="text" class="form-control" path="RecipeTitle" />
 			</div>
 			<div class="mb-3">
-				Email
-				<form:input type="email" class="form-control" path="email" />
+				Description
+				<form:input type="text" class="form-control" path="Description" />
 			</div>
 			<div class="mb-3">
-				Software
-				<form:input type="text" class="form-control" path="software" />
+				Preparation Time
+				<form:input type="number" class="form-control" path="PrepTime" />
 			</div>
 			<div class="mb-3">
-				Version
-				<form:input type="text" class="form-control" path="version" />
+				Total Time
+				<form:input type="number" class="form-control" path="TotalTime" />
 			</div>
 			<div class="mb-3">
-				Department
-				<form:input type="text" class="form-control" path="department" />
+				NumServe
+				<form:input type="number" class="form-control" path="NumServe" />
 			</div>
 			<div class="mb-3">
-				License
-				<form:input type="text" class="form-control" path="license" />
+				Ingredient
+				<form:input type="text" class="form-control" path="Ingredient" />
+			</div>
+			<div class="mb-3">
+				Preparation
+				<form:input type="text" class="form-control" path="Preparation" />
 			</div>
 			<form:button type="submit" class="btn btn-primary">Submit</form:button>
 		</form:form>
 
 
-
+		<a
+			href="${pageContext.request.contextPath}/userInfo"
+			class="btn btn-primary">Return to user profile</a>
 
 		<!-- Optional JavaScript; choose one of the two! -->
 

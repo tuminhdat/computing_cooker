@@ -52,6 +52,10 @@
 	<form action="/invalidate/session" method="post">
 		<input type="submit" value="Log out" />
 	</form>
+	
+	<form action="/recipe/list" method="POST">
+		<input type="submit" value="Recipe List" />
+	</form>
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

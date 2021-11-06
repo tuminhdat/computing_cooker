@@ -21,7 +21,6 @@ public class RecipeRowMapper_computingcooker implements RowMapper<Recipe_model> 
 		recipe.setIngredient(rs.getString("Ingredient"));
 		recipe.setPreparation(rs.getString("Preparation"));
 		recipe.setAuthor(rs.getString("Author"));
-		recipe.setUserID(rs.getInt("UserID"));
 		
 		return recipe;
 	}

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.csis3275.model_computingcooker.*;
@@ -24,7 +25,7 @@ public class Recipe_controller {
 	}
 	
 	@RequestMapping("/recipe/list")
-	public String listRequests(@ModelAttribute("request") Recipe_model createRequest, Model model,
+	public String listRecipes(@ModelAttribute("recipe") Recipe_model createRecipe, Model model,
 			HttpSession session) {
 
 		
@@ -44,5 +45,24 @@ public class Recipe_controller {
 		// Return the view
 		return "allRecipes";
 	}
+	
+	@PostMapping("/recipe/add")
+	public String createStudent(@ModelAttribute("recipe") Recipe_model createRecipe, Model model,
+			HttpSession session) {
+		createRecipe.setAuthor((String) session.getAttribute("userName"));
+		
+		// Add the student
+		recipeDAOImpl.createRecipe(createRecipe);
 
+		// Populate the message into the sesession
+		ArrayList<String> messages = new ArrayList<String>();
+		messages = session.getAttribute("messages") != null ? (ArrayList<String>) session.getAttribute("messages")
+				: new ArrayList<String>();
+		
+		messages.add("New reciped: " + createRecipe.getRecipeTitle() + ", added by " + createRecipe.getAuthor());
+		
+		session.setAttribute("messages", messages);
+
+		return "redirect:/recipe/list";
+	}
 }
