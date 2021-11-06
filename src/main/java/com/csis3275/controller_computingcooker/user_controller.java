@@ -49,6 +49,7 @@ public class user_controller {
 			return "redirect:/loginform";
 		} else {
 			session.removeAttribute("loginmessage");
+			session.setAttribute("userid", currentUser.getUserID());
 			session.setAttribute("userName", currentUser.getUserName());
 			session.setAttribute("password", getMd5(findUser.getUserPassword()));
 			model.addAttribute("message", "Hello " + currentUser.getFirstName() + " " + currentUser.getLastName());
