@@ -50,7 +50,7 @@ public class Recipe_controller {
 	}
 	
 	@PostMapping("/recipe/add")
-	public String createStudent(@ModelAttribute("recipe") Recipe_model createRecipe, Model model,
+	public String createRecipe(@ModelAttribute("recipe") Recipe_model createRecipe, Model model,
 			HttpSession session) {
 		createRecipe.setAuthor((String) session.getAttribute("userName"));
 		
@@ -70,7 +70,7 @@ public class Recipe_controller {
 	}
 	
 	@GetMapping("/recipe/edit/")
-	public String editStudent(@RequestParam(required = true) int id, Model model) {
+	public String editRecipeForm(@RequestParam(required = true) int id, Model model) {
 
 		// Get the student
 		Recipe_model updatedRecipe = recipeDAOImpl.getRecipeById(id);
@@ -80,7 +80,7 @@ public class Recipe_controller {
 	}
 
 	@PostMapping("/recipe/edit/")
-	public String updateStudent(@ModelAttribute("recipe") Recipe_model updatedRecipe, Model model, HttpSession session) {
+	public String updateRecipe(@ModelAttribute("recipe") Recipe_model updatedRecipe, Model model, HttpSession session) {
 
 		// Populate the message into the session
 		ArrayList<String> messages = new ArrayList<String>();
@@ -102,5 +102,23 @@ public class Recipe_controller {
 		// because our edit did not add the list of students to the model
 		return "redirect:/recipe/list";
 
+	}
+	
+	@GetMapping("/recipe/delete/")
+	public String deleteRecipe(@RequestParam(required = true) int id, Model model, HttpSession session) {
+		
+		Recipe_model recipe = recipeDAOImpl.getRecipeById(id);
+		String recipeTitle = recipe.getRecipeTitle();
+		// Get the student
+		recipeDAOImpl.deleteRecipe(id);
+
+		// Populate the message into the sesession
+		ArrayList<String> messages = new ArrayList<String>();
+		messages = session.getAttribute("messages") != null ? (ArrayList<String>) session.getAttribute("messages")
+				: new ArrayList<String>();
+		messages.add("Deleted recipe " + recipeTitle);
+		session.setAttribute("messages", messages);
+
+		return "redirect:/recipe/list";
 	}
 }

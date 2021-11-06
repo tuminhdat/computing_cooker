@@ -23,7 +23,7 @@ public class RecipeDAOImpl {
 		private final String SELECT_RECIPE_BY_ID = "SELECT * FROM recipes WHERE RecipeID = ?";
 		private final String SQL_UPDATE_RECIPE = "UPDATE recipes SET RecipeTitle = ?, Description = ?, PrepTime = ?, TotalTime = ?, NumServe = ?, Ingredient = ?, Preparation = ?"
 				+ "WHERE RecipeID = ?";
-		private final String SQL_DELETE_RECIPE = "DELETE FROM recipe WHERE RecipeID = ?";
+		private final String SQL_DELETE_RECIPE = "DELETE FROM recipes WHERE RecipeID = ?";
 
 
 		// Default Constructor
