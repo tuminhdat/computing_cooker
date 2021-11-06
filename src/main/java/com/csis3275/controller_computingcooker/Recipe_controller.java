@@ -27,26 +27,32 @@ public class Recipe_controller {
 		return new Recipe_model();
 	}
 	
-	@RequestMapping("/recipe/list")
+	@GetMapping("/recipe/list")
 	public String listRecipes(@ModelAttribute("recipe") Recipe_model createRecipe, Model model,
 			HttpSession session) {
-
+		Object userName = session.getAttribute("userName");
 		
-		ArrayList<Recipe_model> allRecipes = new ArrayList<Recipe_model>();
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
+		else {
+			ArrayList<Recipe_model> allRecipes = new ArrayList<Recipe_model>();
+			
+			allRecipes = recipeDAOImpl.getAllRecipes();
+			
+			ArrayList<String> messages = (ArrayList<String>) session.getAttribute("messages");
+
+			// Add in the messages, if the api is blank.
+			model.addAttribute("messages", messages != null ? messages : new ArrayList<String>());
+
+			model.addAttribute("allRecipes", allRecipes);
+			// Clear the messages before the returning
+			session.removeAttribute("messages");
+
+			// Return the view
+			return "allRecipes";
+		}
 		
-		allRecipes = recipeDAOImpl.getAllRecipes();
-		
-		ArrayList<String> messages = (ArrayList<String>) session.getAttribute("messages");
-
-		// Add in the messages, if the api is blank.
-		model.addAttribute("messages", messages != null ? messages : new ArrayList<String>());
-
-		model.addAttribute("allRecipes", allRecipes);
-		// Clear the messages before the returning
-		session.removeAttribute("messages");
-
-		// Return the view
-		return "allRecipes";
 	}
 	
 	@PostMapping("/recipe/add")
