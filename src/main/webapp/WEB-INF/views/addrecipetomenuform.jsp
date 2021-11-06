@@ -1,7 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -15,47 +15,59 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<title>Profile</title>
+
+<title>Add Recipe</title>
+<style type="text/css">
+.error {
+	color: red;
+	font-style: italics;
+}
+</style>
 </head>
 <body>
-	<table class="table table-striped">
-		<tr>
-			<th>LastName</th>
-			<td>${user.getLastName()}</td>
-		</tr>
-		<tr>
-			<th>FirstName</th>
-			<td>${user.getFirstName()}</td>
-		</tr>
-		<tr>
-			<th>Age</th>
-			<td>${user.getAge()}</td>
-		</tr>
-		<tr>
-			<th>Email</th>
-			<td>${user.getEmail()}</td>
-		</tr>
-		<tr>
-			<th>Description</th>
-			<td>${user.getDescription()}</td>
-		</tr>
-		<tr>
-			<th>UserName</th>
-			<td>${user.getUserName()}</td>
-		</tr>
-	</table>
-	
-	<form action="/userInfo/editform" method="POST">
-		<input type="submit" value="Edit Profile" />
-	</form>
-	
-	<form action="/menu/create/menuform" method="GET">
-		<input type="submit" value="Create Menu" />
-	</form>
-	
-	<form action="/invalidate/session" method="post">
-		<input type="submit" value="Log out" />
-	</form>
+	<div class="container">
+		<h2>Added Recipe</h2>
+
+		<table class="table table-striped">
+			<thead>
+				<th>Name</th>
+			</thead>
+
+			<tbody>
+				<!-- Garbage Out!-->
+				<c:forEach var="s" items="${allAddedRecipes}">
+
+					<tr>
+						<td>${s.recipeTitle}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
+	<div class="container">
+		<h2>Pick Recipe</h2>
+
+		<table class="table table-striped">
+			<thead>
+				<th>Name</th>
+				<th>Add</th>
+			</thead>
+
+			<tbody>
+				<!-- Garbage Out!-->
+				<c:forEach var="s" items="${allRecipes}">
+
+					<tr>
+						<td>${s.recipeTitle}</td>
+						<td><a
+							href="${pageContext.request.contextPath}/menu/create/recipe/add/?recipeid=${s.recipeID}
+							&recipetitle=${s.recipeTitle}"
+							class="btn btn-danger">Add</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</div>
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

@@ -10,8 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.csis3275.dao_computingcooker.MenuDAOImpl;
 import com.csis3275.dao_computingcooker.userDAOImpl;
 import java.security.MessageDigest;
+
+import com.csis3275.model_computingcooker.Menu_model;
 import com.csis3275.model_computingcooker.user_model;
 
 @Controller
@@ -23,6 +27,9 @@ public class user_controller {
 	public user_model setupAddForm() {
 		return new user_model();
 	}
+	
+	@Autowired
+	public MenuDAOImpl menuDAO;
 	
 	@GetMapping("/")
 	public String startPage() {

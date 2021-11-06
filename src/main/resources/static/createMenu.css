@@ -1,0 +1,18 @@
+body{
+    padding: 10px;
+}
+
+.title1{
+    color: #1ecbe1;
+}
+
+.nav-bar{
+  background-color: orange;
+  font-size: 30px;
+  padding: 30px;
+  font-weight: bold;
+}
+
+.textBox{
+  width: 100%;
+}
