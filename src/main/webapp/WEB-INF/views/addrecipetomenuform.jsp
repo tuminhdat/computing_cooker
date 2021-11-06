@@ -69,6 +69,8 @@
 		</table>
 	</div>
 
+	<a href="/userInfo"><input type="button" value="Finish"></a>
+
 	<!-- Optional JavaScript; choose one of the two! -->
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->

@@ -44,18 +44,33 @@
 			<td>${user.getUserName()}</td>
 		</tr>
 	</table>
-	
+
 	<form action="/userInfo/editform" method="POST">
 		<input type="submit" value="Edit Profile" />
 	</form>
-	
+
 	<form action="/menu/create/menuform" method="GET">
 		<input type="submit" value="Create Menu" />
 	</form>
-	
+
 	<form action="/invalidate/session" method="post">
 		<input type="submit" value="Log out" />
 	</form>
+
+	<table class="table table-striped">
+		<thead>
+			<th>Menu Title</th>
+		</thead>
+
+		<tbody>
+			<c:forEach var="m" items="${userMenus}">
+
+				<tr>
+					<td>${m.getMenuTitle()}</td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

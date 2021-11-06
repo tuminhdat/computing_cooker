@@ -27,6 +27,7 @@ public class MenuDAOImpl {
 	private final String SQL_ADD_MENU_RECIPE = "INSERT INTO menurecipe (RecipeID, MenuID, RecipeTitle) VALUES (?, ?, ?)";
 	private final String SQL_GET_MENURECIPE_BY_ID = "SELECT * FROM menurecipe WHERE MenuID = ?";
 	private final String SQL_GET_MENU_BY_TITLE_USERID = "SELECT * FROM menus WHERE MenuTitle = ? AND UserID = ?";
+	private final String SQL_GET_ALL_MENU_BY_USERID = "SELECT * FROM menus WHERE UserID = ?";
 
 	
 
@@ -62,5 +63,9 @@ public class MenuDAOImpl {
 		return menu;
 	}
 	
-	
+	public ArrayList<Menu_model> getAllUserMenu(int userID){
+		ArrayList<Menu_model> userMenu = new ArrayList<Menu_model>();
+		userMenu = (ArrayList<Menu_model>) jdbcTemplate.query(SQL_GET_ALL_MENU_BY_USERID, new Object[] {userID}, new MenuRowMapper_computingcooker());
+		return userMenu;
+	}
 }

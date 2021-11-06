@@ -2,6 +2,8 @@ package com.csis3275.controller_computingcooker;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -76,6 +78,15 @@ public class user_controller {
 			if (userDAO.checkExistUser(userName) > 0) {
 				user_model user = userDAO.getUserByUserNamePassword(userName, password);
 				model.addAttribute("user", user);
+				
+				Integer userID = (Integer) session.getAttribute("userid");
+				ArrayList<Menu_model> userMenus = new ArrayList<Menu_model>();
+				userMenus = menuDAO.getAllUserMenu(userID);
+				for (int i = 0; i < userMenus.size(); i++) {
+					System.out.println(userMenus.get(i));
+				}
+				
+				model.addAttribute("userMenus", userMenus);
 				return "userInfo";
 
 			} else {
