@@ -10,6 +10,7 @@ public class Recipe_model {
 	private String ingredient;
 	private String preparation;
 	private String author;
+	private int userID;
 
 	public int getRecipeID() {
 		return recipeID;
@@ -82,5 +83,12 @@ public class Recipe_model {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
+	
+	public int getUserID() {
+		return userID;
+	}
+	
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
 }
