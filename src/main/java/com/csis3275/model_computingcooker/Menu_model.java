@@ -2,8 +2,17 @@ package com.csis3275.model_computingcooker;
 
 public class Menu_model {
 	private int MenuID;
+	private int UserID;
 	private String MenuTitle;
 	private String Description;
+
+	public int getUserID() {
+		return UserID;
+	}
+
+	public void setUserID(int userID) {
+		UserID = userID;
+	}
 
 	public int getMenuID() {
 		return MenuID;

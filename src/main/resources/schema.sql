@@ -35,6 +35,7 @@ CREATE TABLE comments (
 CREATE TABLE menus (
 	MenuID int AUTO_INCREMENT PRIMARY KEY,
 	MenuTitle varchar(255) NOT NULL,
+	UserID int NOT NULL,
 	Description varchar(max)
 );
 
