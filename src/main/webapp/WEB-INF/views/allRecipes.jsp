@@ -38,12 +38,8 @@
 			<thead>
 				<th>Recipe Title</th>
 				<th>Description</th>
-				<th>Preparation Time</th>
-				<th>Total Time</th>
-				<th>Num Serve</th>
-				<th>Ingredient</th>
-				<th>Preparation</th>
 				<th>Author</th>
+				<th>View</th>
 				<th>Delete</th>
 				<th>Edit</th>
 			</thead>
@@ -55,12 +51,8 @@
 					<tr>
 						<td>${s.recipeTitle}</td>
 						<td>${s.description}</td>
-						<td>${s.prepTime}</td>
-						<td>${s.totalTime}</td>
-						<td>${s.numServe}</td>
-						<td>${s.ingredient}</td>
-						<td>${s.preparation}</td>
 						<td>${s.author}</td>
+						<td><a href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}" class="btn btn-primary">View</a>
 						<%
 						String userName = (String) session.getAttribute("userName");
 						%>
@@ -81,40 +73,9 @@
 		</table>
 		
 		
-		<h2>Add New Recipe</h2>
-		<form:form action="${pageContext.request.contextPath}/recipe/add"
-			method="POST" class="form-horizontal" modelAttribute="recipe">
-
-			<div class="mb-3">
-				Recipe Title
-				<form:input type="text" class="form-control" path="RecipeTitle" />
-			</div>
-			<div class="mb-3">
-				Description
-				<form:input type="text" class="form-control" path="Description" />
-			</div>
-			<div class="mb-3">
-				Preparation Time
-				<form:input type="number" class="form-control" path="PrepTime" />
-			</div>
-			<div class="mb-3">
-				Total Time
-				<form:input type="number" class="form-control" path="TotalTime" />
-			</div>
-			<div class="mb-3">
-				NumServe
-				<form:input type="number" class="form-control" path="NumServe" />
-			</div>
-			<div class="mb-3">
-				Ingredient
-				<form:input type="text" class="form-control" path="Ingredient" />
-			</div>
-			<div class="mb-3">
-				Preparation
-				<form:input type="text" class="form-control" path="Preparation" />
-			</div>
-			<form:button type="submit" class="btn btn-primary">Submit</form:button>
-		</form:form>
+		<a
+			href="${pageContext.request.contextPath}/recipe/add"
+			class="btn btn-primary">Add new recipe</a>
 
 
 		<a

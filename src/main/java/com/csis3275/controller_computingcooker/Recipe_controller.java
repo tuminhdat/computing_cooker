@@ -27,7 +27,7 @@ public class Recipe_controller {
 		return new Recipe_model();
 	}
 	
-	@GetMapping("/recipe/list")
+	@RequestMapping("/recipe/list")
 	public String listRecipes(@ModelAttribute("recipe") Recipe_model createRecipe, Model model,
 			HttpSession session) {
 		Object userName = session.getAttribute("userName");
@@ -49,15 +49,23 @@ public class Recipe_controller {
 			// Clear the messages before the returning
 			session.removeAttribute("messages");
 
-			// Return the view
+			// Return the viewc
 			return "allRecipes";
 		}
 		
 	}
 	
+	@GetMapping("/recipe/add")
+	public String addRecipe(Model model) {
+		model.addAttribute("recipe", new Recipe_model());
+		
+		return "addRecipeForm";
+	}
+	
 	@PostMapping("/recipe/add")
 	public String createRecipe(@ModelAttribute("recipe") Recipe_model createRecipe, Model model,
 			HttpSession session) {
+		
 		createRecipe.setAuthor((String) session.getAttribute("userName"));
 		
 		// Add the student
