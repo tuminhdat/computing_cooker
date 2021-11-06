@@ -21,7 +21,7 @@ public class RecipeDAOImpl {
 		private final String SQL_CREATE_RECIPE = "INSERT INTO recipes (RecipeTitle, Description, PrepTime, TotalTime, NumServe, Ingredient, Preparation, Author) "
 				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		private final String SELECT_RECIPE_BY_ID = "SELECT * FROM recipes WHERE RecipeID = ?";
-		private final String SQL_UPDATE_RECIPE = "UPDATE recipes SET RecipeTitle = ?, Description = ?, PrepTime = ?, TotalTime = ?, NumServe = ?, Ingredient = ?, Preparation = ?, Author = ?"
+		private final String SQL_UPDATE_RECIPE = "UPDATE recipes SET RecipeTitle = ?, Description = ?, PrepTime = ?, TotalTime = ?, NumServe = ?, Ingredient = ?, Preparation = ?"
 				+ "WHERE RecipeID = ?";
 		private final String SQL_DELETE_RECIPE = "DELETE FROM recipe WHERE RecipeID = ?";
 
@@ -57,8 +57,8 @@ public class RecipeDAOImpl {
 		}
 		
 		@SuppressWarnings("deprecation")
-		public boolean getRecipeById(int id) {
-			return (jdbcTemplate.queryForObject(SELECT_RECIPE_BY_ID, new Object[] {id}, Integer.class)) > 0;
+		public Recipe_model getRecipeById(int id) {
+			return jdbcTemplate.queryForObject(SELECT_RECIPE_BY_ID, new Object[] {id}, new RecipeRowMapper_computingcooker());
 		}
 		
 		public boolean updateRecipe(Recipe_model recipe) {
@@ -70,7 +70,6 @@ public class RecipeDAOImpl {
 					recipe.getNumServe(), 
 					recipe.getIngredient(),
 					recipe.getPreparation(),
-					recipe.getAuthor(),
 					recipe.getRecipeID()) > 0;
 		}
 }
