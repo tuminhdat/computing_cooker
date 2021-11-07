@@ -136,5 +136,22 @@ public class Recipe_controller {
 		return "redirect:/userInfo";
 	}
 	
-	
+	@GetMapping("/recipe/view/")
+	public String viewRecipe(@RequestParam(required = true) int id, Model model, HttpSession session) {
+		
+		Object userName = session.getAttribute("userName");
+		
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
+		else {
+			Recipe_model selectedRecipe = recipeDAOImpl.getRecipeById(id);
+			model.addAttribute("selectedRecipe", selectedRecipe);
+			
+			
+			
+			return "viewRecipe";
+		}
+		
+	}
 }
