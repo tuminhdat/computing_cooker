@@ -18,8 +18,8 @@ public class RecipeDAOImpl {
 
 		// SQL Queries
 		private final String SQL_GET_ALL_RECIPES = "SELECT * FROM recipes";
-		private final String SQL_CREATE_RECIPE = "INSERT INTO recipes (RecipeTitle, Description, PrepTime, TotalTime, NumServe, Ingredient, Preparation, Author) "
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		private final String SQL_CREATE_RECIPE = "INSERT INTO recipes (RecipeTitle, Description, PrepTime, TotalTime, NumServe, Ingredient, Preparation, Author, UserID) "
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		private final String SELECT_RECIPE_BY_ID = "SELECT * FROM recipes WHERE RecipeID = ?";
 		private final String SQL_UPDATE_RECIPE = "UPDATE recipes SET RecipeTitle = ?, Description = ?, PrepTime = ?, TotalTime = ?, NumServe = ?, Ingredient = ?, Preparation = ?"
 				+ "WHERE RecipeID = ?";
@@ -49,7 +49,8 @@ public class RecipeDAOImpl {
 					newRecipe.getNumServe(), 
 					newRecipe.getIngredient(),
 					newRecipe.getPreparation(),
-					newRecipe.getAuthor()) > 0;
+					newRecipe.getAuthor(),
+					newRecipe.getUserID()) > 0;
 		}
 		
 		public boolean deleteRecipe(int id) {
