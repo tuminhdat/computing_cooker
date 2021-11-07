@@ -66,7 +66,7 @@
 			<c:forEach var="m" items="${userMenus}">
 
 				<tr>
-					<td>${m.getMenuTitle()}</td>
+					<td><a href="${pageContext.request.contextPath}/menu/view/?menuid=${m.getMenuID()}">${m.getMenuTitle()}</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

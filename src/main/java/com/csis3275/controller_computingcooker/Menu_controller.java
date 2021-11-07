@@ -78,4 +78,18 @@ public class Menu_controller {
 		return "addrecipetomenuform";
 	}
 
+	@GetMapping("/menu/view")
+	public String getMenuView(@RequestParam(required = true) int menuid, Model model, HttpSession session) {
+		Menu_model menu = menuDAO.getMenuByID(menuid);		
+		ArrayList<MenuRecipe_model> menuRecipes = menuDAO.getMenuRecipeByMenuID(menuid);
+		
+		for (int i = 0; i < menuRecipes.size(); i++) {
+			System.out.println(menuRecipes.get(i).getRecipeTitle());
+		}
+		
+		model.addAttribute("menu", menu);
+		model.addAttribute("menuRecipes", menuRecipes);
+		return "viewMenu";
+	}
+
 }

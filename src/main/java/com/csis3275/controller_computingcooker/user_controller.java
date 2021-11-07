@@ -81,12 +81,9 @@ public class user_controller {
 				
 				Integer userID = (Integer) session.getAttribute("userid");
 				ArrayList<Menu_model> userMenus = new ArrayList<Menu_model>();
-				userMenus = menuDAO.getAllUserMenu(userID);
-				for (int i = 0; i < userMenus.size(); i++) {
-					System.out.println(userMenus.get(i));
-				}
-				
+				userMenus = menuDAO.getAllUserMenu(userID);			
 				model.addAttribute("userMenus", userMenus);
+				session.removeAttribute("currentMenuID");
 				return "userInfo";
 
 			} else {

@@ -15,6 +15,3 @@ VALUES ('Best-Ever Pumpkin Ravioli', '1 3/4 c. heavy cream', 'Preheat oven to 35
 
 INSERT INTO recipes (RecipeTitle, Ingredient, Preparation)
 VALUES ('Chicago-Style Hot Dogs', '1 3/4 c. heavy cream', 'Preheat oven to 350°');
-
-INSERT INTO recipes (RecipeTitle, Ingredient, Preparation)
-VALUES ('Chicago-Style Hot Dogs', '1 3/4 c. heavy cream', 'Preheat oven to 350°');

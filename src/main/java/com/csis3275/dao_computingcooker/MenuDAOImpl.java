@@ -28,6 +28,8 @@ public class MenuDAOImpl {
 	private final String SQL_GET_MENURECIPE_BY_ID = "SELECT * FROM menurecipe WHERE MenuID = ?";
 	private final String SQL_GET_MENU_BY_TITLE_USERID = "SELECT * FROM menus WHERE MenuTitle = ? AND UserID = ?";
 	private final String SQL_GET_ALL_MENU_BY_USERID = "SELECT * FROM menus WHERE UserID = ?";
+	private final String SQL_GET_MENU_RECIPE_BY_MENUID = "SELECT * FROM menurecipe WHERE MenuID = ?";
+	private final String SQL_GET_MENU_BY_MENUID = "SELECT * FROM menus WHERE MenuID = ?";
 
 	
 
@@ -67,5 +69,15 @@ public class MenuDAOImpl {
 		ArrayList<Menu_model> userMenu = new ArrayList<Menu_model>();
 		userMenu = (ArrayList<Menu_model>) jdbcTemplate.query(SQL_GET_ALL_MENU_BY_USERID, new Object[] {userID}, new MenuRowMapper_computingcooker());
 		return userMenu;
+	}
+	
+	public Menu_model getMenuByID(int menuID) {
+		return jdbcTemplate.queryForObject(SQL_GET_MENU_BY_MENUID, new Object[] {menuID}, new MenuRowMapper_computingcooker());
+	}
+	
+	public ArrayList<MenuRecipe_model> getMenuRecipeByMenuID(int menuID) {
+		ArrayList<MenuRecipe_model> menuRecipe = new ArrayList<MenuRecipe_model>();
+		menuRecipe = (ArrayList<MenuRecipe_model>) jdbcTemplate.query(SQL_GET_MENU_RECIPE_BY_MENUID, new Object[] {menuID}, new MenuRecipeRowMapper_computingcooker());
+		return menuRecipe;
 	}
 }
