@@ -24,6 +24,8 @@ public class RecipeDAOImpl {
 		private final String SQL_UPDATE_RECIPE = "UPDATE recipes SET RecipeTitle = ?, Description = ?, PrepTime = ?, TotalTime = ?, NumServe = ?, Ingredient = ?, Preparation = ?"
 				+ "WHERE RecipeID = ?";
 		private final String SQL_DELETE_RECIPE = "DELETE FROM recipes WHERE RecipeID = ?";
+		private final String SQL_GET_ALL_RECIPE_BY_USERID = "SELECT * FROM recipes WHERE UserID = ?";
+
 
 
 		// Default Constructor
@@ -73,4 +75,11 @@ public class RecipeDAOImpl {
 					recipe.getPreparation(),
 					recipe.getRecipeID()) > 0;
 		}
+		
+		public ArrayList<Recipe_model> getAllUserRecipe(int userID){
+			ArrayList<Recipe_model> userRecipe = new ArrayList<Recipe_model>();
+			userRecipe = (ArrayList<Recipe_model>) jdbcTemplate.query(SQL_GET_ALL_RECIPE_BY_USERID, new Object[] {userID}, new RecipeRowMapper_computingcooker());
+			return userRecipe;
+		}
+
 }

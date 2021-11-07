@@ -46,16 +46,51 @@
 	</table>
 	
 	<form action="/userInfo/editform" method="POST">
-		<input type="submit" value="Edit Profile" />
-	</form>
-	
-	<form action="/invalidate/session" method="post">
-		<input type="submit" value="Log out" />
+		<input type="submit" value="Edit Profile" class="btn btn-success" />
 	</form>
 	
 	<form action="/recipe/list" method="POST">
-		<input type="submit" value="Recipe List" />
+		<input type="submit" value="All Recipe List" class="btn btn-primary"/>
 	</form>
+	
+	<hr>
+	<h2>My recipe 
+		<a href="${pageContext.request.contextPath}/recipe/add"
+			class="btn btn-primary">Add new recipe</a>
+	</h2>
+	
+	<table class="table table-striped">
+			<thead>
+				<th>Recipe Title</th>
+				<th>Description</th>
+				<th>Author</th>
+				<th>View</th>
+				<th>Edit</th>
+				<th>Delete</th>
+			</thead>
+
+			<tbody>
+				<!-- Garbage Out!-->
+				<c:forEach var="s" items="${userRecipes}">
+					<tr>
+						<td>${s.recipeTitle}</td>
+						<td>${s.description}</td>
+						<td>${s.author}</td>
+						<td><a href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}" class="btn btn-primary">View</a>
+						<td><a href="${pageContext.request.contextPath}/recipe/edit/?id=${s.recipeID}" class="btn btn-success">Edit</a></td>
+						<td><a href="${pageContext.request.contextPath}/recipe/delete/?id=${s.recipeID}" class="btn btn-danger">Delete</a></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	
+	
+	
+	<form action="/invalidate/session" method="post">
+		<input type="submit" value="Log out" class = "btn btn-danger"  />
+	</form>
+	
+	
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

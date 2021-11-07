@@ -40,8 +40,6 @@
 				<th>Description</th>
 				<th>Author</th>
 				<th>View</th>
-				<th>Delete</th>
-				<th>Edit</th>
 			</thead>
 
 			<tbody>
@@ -52,34 +50,13 @@
 						<td>${s.recipeTitle}</td>
 						<td>${s.description}</td>
 						<td>${s.author}</td>
-						<td><a href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}" class="btn btn-primary">View</a>
-						<%
-						String userName = (String) session.getAttribute("userName");
-						%>
-						<c:set var = "userName" value = "<%=userName %>" />
-						<c:choose>
-							<c:when test="${userName == s.author}">
-								<td><a href="${pageContext.request.contextPath}/recipe/delete/?id=${s.recipeID}" class="btn btn-danger">Delete</a></td>
-								<td><a href="${pageContext.request.contextPath}/recipe/edit/?id=${s.recipeID}" class="btn btn-success">Edit</a></td>
-							</c:when>
-							<c:otherwise>
-								<td>Invalid</td>
-								<td>Invalid</td>
-							</c:otherwise>
-						</c:choose>
+						<td><a href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}" class="btn btn-primary">View</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		
-		
-		<a
-			href="${pageContext.request.contextPath}/recipe/add"
-			class="btn btn-primary">Add new recipe</a>
-
-
-		<a
-			href="${pageContext.request.contextPath}/userInfo"
+		<a href="${pageContext.request.contextPath}/userInfo"
 			class="btn btn-primary">Return to user profile</a>
 
 		<!-- Optional JavaScript; choose one of the two! -->

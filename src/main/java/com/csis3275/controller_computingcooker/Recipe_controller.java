@@ -67,8 +67,9 @@ public class Recipe_controller {
 			HttpSession session) {
 		
 		createRecipe.setAuthor((String) session.getAttribute("userName"));
+		createRecipe.setUserID((int) session.getAttribute("userid"));
 		
-		// Add the student
+		// Add the recipe
 		recipeDAOImpl.createRecipe(createRecipe);
 
 		// Populate the message into the sesession
@@ -80,13 +81,12 @@ public class Recipe_controller {
 		
 		session.setAttribute("messages", messages);
 
-		return "redirect:/recipe/list";
+		return "redirect:/userInfo";
 	}
 	
 	@GetMapping("/recipe/edit/")
 	public String editRecipeForm(@RequestParam(required = true) int id, Model model) {
 
-		// Get the student
 		Recipe_model updatedRecipe = recipeDAOImpl.getRecipeById(id);
 		model.addAttribute("recipe", updatedRecipe);
 
@@ -114,7 +114,7 @@ public class Recipe_controller {
 
 		// We are redirecting to show students so that the GETMapping is executed again
 		// because our edit did not add the list of students to the model
-		return "redirect:/recipe/list";
+		return "redirect:/userInfo";
 
 	}
 	
@@ -133,6 +133,8 @@ public class Recipe_controller {
 		messages.add("Deleted recipe " + recipeTitle);
 		session.setAttribute("messages", messages);
 
-		return "redirect:/recipe/list";
+		return "redirect:/userInfo";
 	}
+	
+	
 }
