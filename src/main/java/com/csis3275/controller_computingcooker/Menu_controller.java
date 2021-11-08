@@ -112,7 +112,7 @@ public class Menu_controller {
 	@RequestMapping("/menu/edit")
 	public String doEditMenu(@ModelAttribute("menu") Menu_model menu, Model model, HttpSession session) {
 		Integer menuid = (Integer) session.getAttribute("currentMenuID");
-		session.setAttribute("currentMenuID", menuID);
+		menuDAO.editMenu(menuid, menu.getMenuTitle(), menu.getDescription());
 		return "redirect:/menu/create/recipe";
 	}
 }

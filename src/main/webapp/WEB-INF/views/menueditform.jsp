@@ -37,10 +37,10 @@ body {
 
 	<form action="/menu/edit" method="post" modelAttribute="menu">
 		<label for="MenuTitle">Menu Title :</label> <br> <input
-			type="text" class="textBox" value="${menu.getMenuTitle()} name="MenuTitle">
+			type="text" class="textBox" value="${menu.getMenuTitle()}" name="MenuTitle">
 		<br> <label for="Description">Menu Description :</label> <br>
 
-		<textarea class="textBox" value="${menu.getDescription()"
+		<textarea class="textBox" value="${menu.getDescription()}"
 			name="Description" rows="4"></textarea>
 
 		<br> <input type="submit" value="Next">
