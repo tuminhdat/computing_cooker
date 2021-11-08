@@ -8,13 +8,46 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+#myTable {
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid #ddd;
+	font-size: 18px;
+}
 
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
+#myTable th, #myTable td {
+	text-align: left;
+	padding: 12px;
+}
+
+#myTable tr {
+	border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+	background-color: #f1f1f1;
+}
+
+body {
+	padding: 10px;
+}
+
+.title1 {
+	color: #1ecbe1;
+}
+
+.nav-bar {
+	background-color: orange;
+	font-size: 30px;
+	padding: 30px;
+	font-weight: bold;
+}
+
+.textBox {
+	width: 100%;
+}
+</style>
 </head>
 <body>
 	<div class="nav-bar">
@@ -27,25 +60,23 @@
 	</div>
 
 
-	<h2 class="title1">${menu.getMenuTitle()}</h2>
+	<h1 class="title1">${menu.getMenuTitle()}</h1>
 
-	<table>
-		<thead>
-			<th>Recipes</th>
-		</thead>
-		<tbody>
-			<c:forEach var="s" items="${menuRecipes}">
-				<tr>
-					<td>${s.getRecipeTitle()}</td>
-				</tr>
-			</c:forEach>
-		</tbody>
+	<table id="myTable">
+		<tr class="header">
+			<th style="width: 100%;">Recipe Title</th>
+		</tr>
+		<c:forEach var="s" items="${menuRecipes}">
 
+			<tr>
+				<td>${s.getRecipeTitle()}</td>
+			</tr>
+		</c:forEach>
 	</table>
 
 	<div class="comment-container">
 		<form action="/action_page.php">
-			<textarea id="w3review" name="w3review" rows="4"></textarea>
+			<textarea class="textBox" name="w3review" rows="4"></textarea>
 			<br> <input type="submit" value="Submit">
 		</form>
 	</div>

@@ -1,88 +1,140 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html>
 <head>
-<!-- Required meta tags -->
-<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+* {
+	box-sizing: border-box;
+}
 
-<!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
-	crossorigin="anonymous">
+#myInput {
+	background-image: url('/css/searchicon.png');
+	background-position: 10px 10px;
+	background-repeat: no-repeat;
+	width: 100%;
+	font-size: 16px;
+	padding: 12px 20px 12px 40px;
+	border: 1px solid #ddd;
+	margin-bottom: 12px;
+}
 
-<title>Add Recipe</title>
-<style type="text/css">
-.error {
-	color: red;
-	font-style: italics;
+#myTable {
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid #ddd;
+	font-size: 18px;
+}
+
+#myTable th, #myTable td {
+	text-align: left;
+	padding: 12px;
+}
+
+#myTable tr {
+	border-bottom: 1px solid #ddd;
+}
+
+#myTable tr.header, #myTable tr:hover {
+	background-color: #f1f1f1;
+}
+
+#myTable2 {
+	border-collapse: collapse;
+	width: 100%;
+	border: 1px solid #ddd;
+	font-size: 18px;
+}
+
+#myTable2 th, #myTable2 td {
+	text-align: left;
+	padding: 12px;
+}
+
+#myTable2 tr {
+	border-bottom: 1px solid #ddd;
+}
+
+#myTable2 tr.header, #myTable2 tr:hover {
+	background-color: #f1f1f1;
 }
 </style>
 </head>
 <body>
-	<div class="container">
-		<h2>Added Recipe</h2>
 
-		<table class="table table-striped">
-			<thead>
-				<th>Name</th>
-			</thead>
+	<h2>Menu Recipe</h2>
 
-			<tbody>
-				<!-- Garbage Out!-->
-				<c:forEach var="s" items="${allAddedRecipes}">
+	<table id="myTable2">
+		<tr class="header">
+			<th style="width: 60%;">Recipe Title</th>
+			<th style="width: 40%;">Delete</th>
+		</tr>
 
-					<tr>
-						<td>${s.recipeTitle}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
-	<div class="container">
-		<h2>Pick Recipe</h2>
 
-		<table class="table table-striped">
-			<thead>
-				<th>Name</th>
-				<th>Add</th>
-			</thead>
+		<!-- Garbage Out!-->
+		<c:forEach var="s" items="${allAddedRecipes}">
 
-			<tbody>
-				<!-- Garbage Out!-->
-				<c:forEach var="s" items="${allRecipes}">
+			<tr>
+				<td>${s.recipeTitle}</td>
+				<!--  <td><a
+						href="${pageContext.request.contextPath}/menu/create/recipe/add/?recipeid=${s.recipeID}
+        &recipetitle=${s.recipeTitle}"
+						class="btn btn-danger">Add</a></td> -->
+			</tr>
+		</c:forEach>
 
-					<tr>
-						<td>${s.recipeTitle}</td>
-						<td><a
-							href="${pageContext.request.contextPath}/menu/create/recipe/add/?recipeid=${s.recipeID}
-							&recipetitle=${s.recipeTitle}"
-							class="btn btn-danger">Add</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-	</div>
+	</table>
+	
+	<br>
 
 	<a href="/userInfo"><input type="button" value="Finish"></a>
 
-	<!-- Optional JavaScript; choose one of the two! -->
+	<h2>Pick Recipe</h2>
 
-	<!-- Option 1: Bootstrap Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
-		crossorigin="anonymous"></script>
+	<input type="text" id="myInput" onkeyup="myFunction()"
+		placeholder="Search for names.." title="Type in a name">
 
-	<!-- Option 2: Separate Popper and Bootstrap JS -->
-	<!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
-    -->
+	<table id="myTable">
+		<tr class="header">
+			<th style="width: 60%;">Recipe Title</th>
+			<th style="width: 40%;">Add</th>
+		</tr>
+		<c:forEach var="s" items="${allRecipes}">
+
+			<tr>
+				<td>${s.recipeTitle}</td>
+				<td><a
+					href="${pageContext.request.contextPath}/menu/create/recipe/add/?recipeid=${s.recipeID}
+        &recipetitle=${s.recipeTitle}"
+					class="btn btn-danger">Add</a></td>
+			</tr>
+		</c:forEach>
+	</table>
+
+
+
+	<script>
+		function myFunction() {
+			var input, filter, table, tr, td, i, txtValue;
+			input = document.getElementById("myInput");
+			filter = input.value.toUpperCase();
+			table = document.getElementById("myTable");
+			tr = table.getElementsByTagName("tr");
+			for (i = 0; i < tr.length; i++) {
+				td = tr[i].getElementsByTagName("td")[0];
+				if (td) {
+					txtValue = td.textContent || td.innerText;
+					if (txtValue.toUpperCase().indexOf(filter) > -1) {
+						tr[i].style.display = "";
+					} else {
+						tr[i].style.display = "none";
+					}
+				}
+			}
+		}
+	</script>
+
 </body>
 </html>
