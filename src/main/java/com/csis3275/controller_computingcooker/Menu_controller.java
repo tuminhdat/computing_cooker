@@ -41,7 +41,7 @@ public class Menu_controller {
 		menuDAO.createMenu(menu);
 		Integer menuID = menuDAO.getMenuByUserIDAndTitle(userID, menu.getMenuTitle()).getMenuID();
 		session.setAttribute("currentMenuID", menuID);
-		return "redirect:/menu/create/recipe";
+		return "redirect:/menu/recipe";
 	}
 
 	@RequestMapping("/menu/create/recipe/add")
@@ -49,7 +49,7 @@ public class Menu_controller {
 			@RequestParam(required = true) String recipetitle, Model model, HttpSession session) {
 		Integer menuid = (Integer) session.getAttribute("currentMenuID");
 		menuDAO.addRecipeToMenu(recipeid, menuid, recipetitle);
-		return "redirect:/menu/create/recipe";
+		return "redirect:/menu/recipe";
 	}
 
 	@RequestMapping("/menu/create/recipe/delete")
@@ -57,10 +57,10 @@ public class Menu_controller {
 			HttpSession session) {
 		Integer menuid = (Integer) session.getAttribute("currentMenuID");
 		menuDAO.deleteMenuRecipe(menuid, recipeid);
-		return "redirect:/menu/create/recipe";
+		return "redirect:/menu/recipe";
 	}
 
-	@GetMapping("/menu/create/recipe")
+	@GetMapping("/menu/recipe")
 	public String getAllRecipeInMenu(Model model, HttpSession session) {
 		Integer menuID = (Integer) session.getAttribute("currentMenuID");
 
@@ -113,6 +113,6 @@ public class Menu_controller {
 	public String doEditMenu(@ModelAttribute("menu") Menu_model menu, Model model, HttpSession session) {
 		Integer menuid = (Integer) session.getAttribute("currentMenuID");
 		menuDAO.editMenu(menuid, menu.getMenuTitle(), menu.getDescription());
-		return "redirect:/menu/create/recipe";
+		return "redirect:/menu/recipe";
 	}
 }
