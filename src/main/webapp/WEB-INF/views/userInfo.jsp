@@ -66,7 +66,14 @@
 			<c:forEach var="m" items="${userMenus}">
 
 				<tr>
-					<td><a href="${pageContext.request.contextPath}/menu/view/?menuid=${m.getMenuID()}">${m.getMenuTitle()}</a></td>
+					<td><a
+						href="${pageContext.request.contextPath}/menu/view/?menuid=${m.getMenuID()}">${m.getMenuTitle()}</a></td>
+					<td><a
+						href="${pageContext.request.contextPath}/menu/editform/?menuid=${m.getMenuID()}"
+						class="btn btn-info">Edit</a></td>
+					<td><a
+						href="${pageContext.request.contextPath}/menu/delete/?menuid=${m.getMenuID()}"
+						class="btn btn-danger">Delete</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>

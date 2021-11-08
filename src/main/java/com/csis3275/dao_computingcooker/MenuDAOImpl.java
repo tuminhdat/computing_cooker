@@ -30,6 +30,12 @@ public class MenuDAOImpl {
 	private final String SQL_GET_ALL_MENU_BY_USERID = "SELECT * FROM menus WHERE UserID = ?";
 	private final String SQL_GET_MENU_RECIPE_BY_MENUID = "SELECT * FROM menurecipe WHERE MenuID = ?";
 	private final String SQL_GET_MENU_BY_MENUID = "SELECT * FROM menus WHERE MenuID = ?";
+	private final String SQL_DELETE_MENU_RECIPE = "DELETE FROM menurecipe WHERE MenuID = ? AND RecipeID = ?";
+	
+	private final String SQL_UPDATE_MENU = "UPDATE menus SET MenuTitle = ?, Description = ? WHERE MenuID = ?";
+	
+	private final String SQL_DELETE_MENU = "DELETE FROM menus WHERE MenuID = ?";
+	private final String SQL_DELETE_RECIPE = "DELETE FROM menurecipe WHERE MenuID = ?";
 
 	
 
@@ -79,5 +85,18 @@ public class MenuDAOImpl {
 		ArrayList<MenuRecipe_model> menuRecipe = new ArrayList<MenuRecipe_model>();
 		menuRecipe = (ArrayList<MenuRecipe_model>) jdbcTemplate.query(SQL_GET_MENU_RECIPE_BY_MENUID, new Object[] {menuID}, new MenuRecipeRowMapper_computingcooker());
 		return menuRecipe;
+	}
+	
+	public boolean deleteMenuRecipe(int menuID, int recipeID) {
+		return jdbcTemplate.update(SQL_DELETE_MENU_RECIPE, menuID, recipeID) > 0;
+	}
+	
+	public boolean deleteMenu(int menuID) {
+		boolean temp = jdbcTemplate.update(SQL_DELETE_MENU, menuID) > 0;
+		return jdbcTemplate.update(SQL_DELETE_RECIPE, menuID) > 0;
+	}
+	
+	public boolean editMenu(int menuID, String menuTitle, String menuDescription) {
+		return jdbcTemplate.update(SQL_UPDATE_MENU, menuTitle, menuDescription, menuID) > 0;
 	}
 }

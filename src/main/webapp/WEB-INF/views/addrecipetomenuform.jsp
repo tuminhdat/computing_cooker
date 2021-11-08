@@ -78,15 +78,14 @@
 
 			<tr>
 				<td>${s.recipeTitle}</td>
-				<!--  <td><a
-						href="${pageContext.request.contextPath}/menu/create/recipe/add/?recipeid=${s.recipeID}
-        &recipetitle=${s.recipeTitle}"
-						class="btn btn-danger">Add</a></td> -->
+				<td><a
+					href="${pageContext.request.contextPath}/menu/create/recipe/delete/?recipeid=${s.recipeID}"
+					class="btn btn-danger">Delete</a></td>
 			</tr>
 		</c:forEach>
 
 	</table>
-	
+
 	<br>
 
 	<a href="/userInfo"><input type="button" value="Finish"></a>

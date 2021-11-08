@@ -52,6 +52,14 @@ public class Menu_controller {
 		return "redirect:/menu/create/recipe";
 	}
 
+	@RequestMapping("/menu/create/recipe/delete")
+	public String doDeleteRecipeFromMenu(@RequestParam(required = true) int recipeid, Model model,
+			HttpSession session) {
+		Integer menuid = (Integer) session.getAttribute("currentMenuID");
+		menuDAO.deleteMenuRecipe(menuid, recipeid);
+		return "redirect:/menu/create/recipe";
+	}
+
 	@GetMapping("/menu/create/recipe")
 	public String getAllRecipeInMenu(Model model, HttpSession session) {
 		Integer menuID = (Integer) session.getAttribute("currentMenuID");
@@ -80,16 +88,31 @@ public class Menu_controller {
 
 	@GetMapping("/menu/view")
 	public String getMenuView(@RequestParam(required = true) int menuid, Model model, HttpSession session) {
-		Menu_model menu = menuDAO.getMenuByID(menuid);		
+		Menu_model menu = menuDAO.getMenuByID(menuid);
 		ArrayList<MenuRecipe_model> menuRecipes = menuDAO.getMenuRecipeByMenuID(menuid);
-		
-		for (int i = 0; i < menuRecipes.size(); i++) {
-			System.out.println(menuRecipes.get(i).getRecipeTitle());
-		}
-		
 		model.addAttribute("menu", menu);
 		model.addAttribute("menuRecipes", menuRecipes);
 		return "viewMenu";
 	}
-
+	
+	@RequestMapping("/menu/delete")
+	public String doDeleteMenu(@RequestParam(required = true) int menuid, Model model, HttpSession session) {
+		menuDAO.deleteMenu(menuid);
+		return "redirect:/userInfo";
+	}
+	
+	@RequestMapping("/menu/editform")
+	public String getEditForm(@RequestParam(required = true) int menuid, Model model, HttpSession session) {
+		session.setAttribute("currentMenuID", menuid);
+		Menu_model menu = menuDAO.getMenuByID(menuid);
+		model.addAttribute("menu", menu);
+		return "menueditform";
+	}
+	
+	@RequestMapping("/menu/edit")
+	public String doEditMenu(@ModelAttribute("menu") Menu_model menu, Model model, HttpSession session) {
+		Integer menuid = (Integer) session.getAttribute("currentMenuID");
+		session.setAttribute("currentMenuID", menuID);
+		return "redirect:/menu/create/recipe";
+	}
 }
