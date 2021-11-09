@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.csis3275.dao_computingcooker.MenuDAOImpl;
 import com.csis3275.dao_computingcooker.userDAOImpl;
-import java.security.MessageDigest;
-
 import com.csis3275.model_computingcooker.Menu_model;
 import com.csis3275.model_computingcooker.user_model;
+import com.csis3275.dao_computingcooker.*;
+import java.security.MessageDigest;
+
+import com.csis3275.model_computingcooker.*;
 
 @Controller
 public class user_controller {
@@ -32,6 +34,13 @@ public class user_controller {
 	
 	@Autowired
 	public MenuDAOImpl menuDAO;
+	
+	@Autowired
+	public RecipeDAOImpl recipeDAO;
+	
+	public Recipe_model setupAddRecipeForm() {
+		return new Recipe_model();
+	}
 	
 	@GetMapping("/")
 	public String startPage() {
@@ -80,10 +89,16 @@ public class user_controller {
 				model.addAttribute("user", user);
 				
 				Integer userID = (Integer) session.getAttribute("userid");
+				
 				ArrayList<Menu_model> userMenus = new ArrayList<Menu_model>();
 				userMenus = menuDAO.getAllUserMenu(userID);			
 				model.addAttribute("userMenus", userMenus);
 				session.removeAttribute("currentMenuID");
+				
+				ArrayList<Recipe_model> userRecipes = new ArrayList<Recipe_model>();
+				userRecipes = recipeDAO.getAllUserRecipe(userID);			
+				model.addAttribute("userRecipes", userRecipes);
+				
 				return "userInfo";
 
 			} else {

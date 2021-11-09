@@ -35,7 +35,8 @@ public class MenuDAOImpl {
 	private final String SQL_UPDATE_MENU = "UPDATE menus SET MenuTitle = ?, Description = ? WHERE MenuID = ?";
 	
 	private final String SQL_DELETE_MENU = "DELETE FROM menus WHERE MenuID = ?";
-	private final String SQL_DELETE_RECIPE = "DELETE FROM menurecipe WHERE MenuID = ?";
+	private final String SQL_DELETE_RECIPE_IN_MENU = "DELETE FROM menurecipe WHERE MenuID = ?";
+	private final String SQL_DELETE_RECIPE = "DELETE FROM menurecipe WHERE RecipeID = ?";
 
 	
 
@@ -93,10 +94,14 @@ public class MenuDAOImpl {
 	
 	public boolean deleteMenu(int menuID) {
 		boolean temp = jdbcTemplate.update(SQL_DELETE_MENU, menuID) > 0;
-		return jdbcTemplate.update(SQL_DELETE_RECIPE, menuID) > 0;
+		return jdbcTemplate.update(SQL_DELETE_RECIPE_IN_MENU, menuID) > 0;
 	}
 	
 	public boolean editMenu(int menuID, String menuTitle, String menuDescription) {
 		return jdbcTemplate.update(SQL_UPDATE_MENU, menuTitle, menuDescription, menuID) > 0;
+	}
+	
+	public boolean deleteRecipe(int recipeID) {
+		return jdbcTemplate.update(SQL_DELETE_RECIPE, recipeID) > 0;
 	}
 }

@@ -83,13 +83,12 @@ public class Recipe_model {
 	public void setAuthor(String author) {
 		this.author = author;
 	}
-
+	
 	public int getUserID() {
 		return userID;
 	}
-
+	
 	public void setUserID(int userID) {
 		this.userID = userID;
 	}
-
 }
