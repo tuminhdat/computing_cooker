@@ -61,6 +61,8 @@ body {
 
 
 	<h1 class="title1">${menu.getMenuTitle()}</h1>
+	
+	<h2>${ menu.getDescription()}</h2>
 
 	<table id="myTable">
 		<tr class="header">

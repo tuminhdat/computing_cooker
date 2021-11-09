@@ -40,8 +40,8 @@ body {
 			type="text" class="textBox" value="${menu.getMenuTitle()}" name="MenuTitle">
 		<br> <label for="Description">Menu Description :</label> <br>
 
-		<textarea class="textBox" value="${menu.getDescription()}"
-			name="Description" rows="4"></textarea>
+		<textarea class="textBox"
+			name="Description" rows="4">${menu.getDescription()}</textarea>
 
 		<br> <input type="submit" value="Next">
 	</form>
