@@ -48,16 +48,10 @@
 	<form action="/userInfo/editform" method="POST">
 		<input type="submit" value="Edit Profile" class="btn btn-success" />
 	</form>
-
-	<form action="/menu/create/menuform" method="GET">
-		<input type="submit" value="Create Menu" />
-	</form>
-
-	<form action="/recipe/list" method="POST">
-		<input type="submit" value="All Recipe List" class="btn btn-primary" />
-	</form>
-
 	<hr>
+	<h1 style="text-align: center">RECIPES - <a href="${pageContext.request.contextPath}/recipe/list"
+			class="btn btn-primary">All Recipe List</a></h1>
+	
 	<h2>
 		My recipe <a href="${pageContext.request.contextPath}/recipe/add"
 			class="btn btn-primary">Add new recipe</a>
@@ -68,7 +62,6 @@
 			<th>Recipe Title</th>
 			<th>Description</th>
 			<th>Author</th>
-			<th>View</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</thead>
@@ -77,23 +70,24 @@
 			<!-- Garbage Out!-->
 			<c:forEach var="s" items="${userRecipes}">
 				<tr>
-					<td>${s.recipeTitle}</td>
+					<td><a href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}">${s.recipeTitle}</a></td>
 					<td>${s.description}</td>
 					<td>${s.author}</td>
-					<td><a
-						href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}"
-						class="btn btn-primary">View</a>
-					<td><a
-						href="${pageContext.request.contextPath}/recipe/edit/?id=${s.recipeID}"
-						class="btn btn-success">Edit</a></td>
-					<td><a
-						href="${pageContext.request.contextPath}/recipe/delete/?id=${s.recipeID}"
+					<td><a href="${pageContext.request.contextPath}/recipe/edit/?id=${s.recipeID}"
+						class="btn btn-info">Edit</a></td>
+					<td><a href="${pageContext.request.contextPath}/recipe/delete/?id=${s.recipeID}"
 						class="btn btn-danger">Delete</a></td>
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-
+	
+	<hr>
+	<h2>
+		My menu <a href="${pageContext.request.contextPath}/menu/create/menuform"
+			class="btn btn-primary">Add new menu</a>
+	</h2>
+	
 	<table class="table table-striped">
 		<thead>
 			<th>Menu Title</th>
