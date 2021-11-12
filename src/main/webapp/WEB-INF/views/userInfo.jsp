@@ -83,6 +83,8 @@
 	</table>
 	
 	<hr>
+	<h1 style="text-align: center">MENU - <a href=""
+			class="btn btn-primary">All Menu List</a></h1>
 	<h2>
 		My menu <a href="${pageContext.request.contextPath}/menu/create/menuform"
 			class="btn btn-primary">Add new menu</a>
