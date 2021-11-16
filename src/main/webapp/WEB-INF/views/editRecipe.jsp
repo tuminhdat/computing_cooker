@@ -49,6 +49,8 @@ body {
 		<form:form action="${pageContext.request.contextPath}/recipe/edit/"
 			cssClass="form-horizontal" method="post" modelAttribute="recipe">
 			
+			<form:input type="hidden" name="RecipeID" value="${recipe.getRecipeID()}" path="RecipeID" />
+			
 			<div class="mb-3">
 				Recipe Title
 				<form:input type="text" name="RecipeTitle" class="form-control" value="${recipe.getRecipeTitle()}" path="RecipeTitle" />

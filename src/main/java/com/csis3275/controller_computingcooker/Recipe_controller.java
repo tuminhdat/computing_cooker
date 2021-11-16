@@ -104,16 +104,15 @@ public class Recipe_controller {
 		session.setAttribute("messages", messages);
 
 		recipeDAOImpl.updateRecipe(updatedRecipe);
+		menuDAO.editMenuRecipeTitle(updatedRecipe.getRecipeID(), updatedRecipe.getRecipeTitle());
 
-		// Get a list of students from the controller
+		// Get a list of recipes from the controller
 		List<Recipe_model> recipes = recipeDAOImpl.getAllRecipes();
 		model.addAttribute("recipe", recipes);
 
 		model.addAttribute("message",
 				"Edited recipe " + updatedRecipe.getRecipeTitle() + ", by " + updatedRecipe.getAuthor());
 
-		// We are redirecting to show students so that the GETMapping is executed again
-		// because our edit did not add the list of students to the model
 		return "redirect:/userInfo";
 
 	}
@@ -123,7 +122,6 @@ public class Recipe_controller {
 
 		Recipe_model recipe = recipeDAOImpl.getRecipeById(id);
 		String recipeTitle = recipe.getRecipeTitle();
-		// Get the student
 		recipeDAOImpl.deleteRecipe(id);
 		menuDAO.deleteRecipe(id);
 
