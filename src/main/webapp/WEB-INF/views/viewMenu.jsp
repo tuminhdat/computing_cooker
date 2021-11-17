@@ -61,7 +61,7 @@ body {
 
 
 	<h1 class="title1">${menu.getMenuTitle()}</h1>
-	
+
 	<h2>${ menu.getDescription()}</h2>
 
 	<table id="myTable">
@@ -71,7 +71,8 @@ body {
 		<c:forEach var="s" items="${menuRecipes}">
 
 			<tr>
-				<td>${s.getRecipeTitle()}</td>
+				<td><a
+					href="${pageContext.request.contextPath}/recipe/view/?id=${s.getRecipeID()}">${s.getRecipeTitle()}</a></td>
 			</tr>
 		</c:forEach>
 	</table>
