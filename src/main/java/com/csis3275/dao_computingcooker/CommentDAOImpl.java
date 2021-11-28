@@ -6,10 +6,12 @@ import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import com.csis3275.model_computingcooker.Comment_model;
 import com.csis3275.model_computingcooker.CommentRowMapper_computingcooker;
 
+@Service
 public class CommentDAOImpl {
 	JdbcTemplate jdbcTemplate;
 

@@ -15,6 +15,7 @@ import com.csis3275.model_computingcooker.Comment_model;
 
 @Controller
 public class Comment_controller {
+	
 	@Autowired
 	public CommentDAOImpl commentDAOImpl;
 
@@ -31,6 +32,5 @@ public class Comment_controller {
 
 		// Return the viewc
 		return "redirect:/recipe/view";
-
 	}
 }
