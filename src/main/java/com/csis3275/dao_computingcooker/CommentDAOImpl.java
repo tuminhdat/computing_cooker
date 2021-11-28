@@ -1,5 +1,7 @@
 package com.csis3275.dao_computingcooker;
 
+import java.util.ArrayList;
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,10 +15,19 @@ public class CommentDAOImpl {
 
 	private final String SQL_CREATE_COMMENT_RECIPE = "INSERT INTO comments (Content, UserID, RecipeID) VALUES (?,?,?)";
 	private final String SQL_CREATE_COMMENT_MENU = "INSERT INTO comments (Content, UserID, MenuID) VALUES (?,?,?)";
+	private final String SQL_GET_ALL_COMMENTS = "SELECT * FROM comments";
 
 	@Autowired
 	public CommentDAOImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
+	}
+	
+	public ArrayList<Comment_model> getAllComments()	{
+		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
+		
+		allComments = (ArrayList<Comment_model>) jdbcTemplate.query(SQL_GET_ALL_COMMENTS, new CommentRowMapper_computingcooker());
+		
+		return allComments;
 	}
 	
 	public boolean createCommentForMenu(Comment_model newComment) {
@@ -24,6 +35,6 @@ public class CommentDAOImpl {
 	}
 	
 	public boolean createCommentForRecipe(Comment_model newComment) {
-		return jdbcTemplate.update(SQL_CREATE_COMMENT_MENU, newComment.getContent(), newComment.getUserID(), newComment.getRecipeID()) > 0;
+		return jdbcTemplate.update(SQL_CREATE_COMMENT_RECIPE, newComment.getContent(), newComment.getUserID(), newComment.getRecipeID()) > 0;
 	}
 }
