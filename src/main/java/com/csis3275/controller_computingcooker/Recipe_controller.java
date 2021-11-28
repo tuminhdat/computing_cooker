@@ -25,7 +25,10 @@ public class Recipe_controller {
 
 	@Autowired
 	public MenuDAOImpl menuDAO;
-
+	
+	@Autowired
+	public CommentDAOImpl commentDAO;
+	
 	public Recipe_model setupAddForm() {
 		return new Recipe_model();
 	}
@@ -145,7 +148,13 @@ public class Recipe_controller {
 		} else {
 			Recipe_model selectedRecipe = recipeDAOImpl.getRecipeById(id);
 			model.addAttribute("selectedRecipe", selectedRecipe);
-
+			
+			Integer userID = (Integer) session.getAttribute("userid");
+			
+			ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
+			allComments = commentDAO.getAllComments();			
+			model.addAttribute("allComments", allComments);
+			
 			return "viewRecipe";
 		}
 

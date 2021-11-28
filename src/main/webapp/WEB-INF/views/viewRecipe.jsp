@@ -119,7 +119,7 @@ body {
 	</c:forEach>
 
 	<div class="comment-container">
-		<form action="/action_page.php">
+		<form action="/${pageContext.request.contextPath}/comment/recipe/add">
 			<textarea class="textBox" name="w3review" rows="4"></textarea>
 			<br> <input type="submit" value="Submit">
 		</form>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.csis3275.dao_computingcooker.CommentDAOImpl;
@@ -23,14 +24,25 @@ public class Comment_controller {
 		return new Comment_model();
 	}
 
-	@RequestMapping("/comment/list")
-	public String listRecipes(@ModelAttribute("comment") Comment_model createComment, Model model, HttpSession session) {
+//	@RequestMapping("/comment/recipe/list")
+//	public String listRecipes(@ModelAttribute("comment") Comment_model createComment, Model model, HttpSession session) {
+//
+//		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
+//
+//		allComments = commentDAOImpl.getAllComments();
+//
+//		// Return the viewc
+//		return "viewRecipe";
+//	}
+	
+	@PostMapping("/comment/recipe/add")
+	public String createCommentForRecipe(@ModelAttribute("comment") Comment_model createComment, Model model, HttpSession session) {
+		
+		createComment.setUserID((int) session.getAttribute("userid"));
 
-		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
+		// Add the comment
+		commentDAOImpl.createCommentForRecipe(createComment);
 
-		allComments = commentDAOImpl.getAllComments();
-
-		// Return the viewc
 		return "redirect:/recipe/view";
 	}
 }
