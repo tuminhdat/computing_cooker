@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.csis3275.dao_computingcooker.CommentDAOImpl;
 import com.csis3275.model_computingcooker.Comment_model;
+import com.csis3275.model_computingcooker.Recipe_model;
 
 @Controller
 public class Comment_controller {
@@ -71,5 +72,14 @@ public class Comment_controller {
 		int menuID = (int) session.getAttribute("menuID");
 		
 		return "redirect:/menu/view/?menuid=" + menuID;
+	}
+	
+	@GetMapping("/comment/recipe/update")
+	public String editCommentForm(@RequestParam(required = true) int id, Model model) {
+
+		Comment_model selectedComment = commentDAOImpl.getCommentById(id);
+		model.addAttribute("selectedComment", selectedComment);
+
+		return "";
 	}
 }

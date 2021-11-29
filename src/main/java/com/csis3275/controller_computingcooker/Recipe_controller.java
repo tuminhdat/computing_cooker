@@ -30,13 +30,16 @@ public class Recipe_controller {
 	@Autowired
 	public CommentDAOImpl commentDAO;
 	
+	@Autowired 
+	public userDAOImpl userDAO;
+	
 	public Recipe_model setupAddForm() {
 		return new Recipe_model();
 	}
 
 	@RequestMapping("/recipe/list")
 	public String listRecipes(@ModelAttribute("recipe") Recipe_model createRecipe, Model model, HttpSession session) {
-		Object userName = session.getAttribute("userName");
+		String userName = (String) session.getAttribute("userName");
 
 		if (userName == null) {
 			return "redirect:/loginform";
@@ -142,8 +145,8 @@ public class Recipe_controller {
 	@GetMapping("/recipe/view/")
 	public String viewRecipe(@RequestParam(required = true) int id, Model model, HttpSession session) {
 
-		Object userName = session.getAttribute("userName");
-
+		String userName = (String) session.getAttribute("userName");
+		
 		if (userName == null) {
 			return "redirect:/loginform";
 		} else {
