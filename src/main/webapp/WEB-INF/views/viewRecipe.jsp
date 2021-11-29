@@ -55,9 +55,20 @@ body {
 	width: 100%;
 }
 
-.myDiv {
-  border: 1px solid black;
-  padding-left: 10px;
+.flex-container {
+	display: flex;
+	width: 50%;
+}
+
+.flex-container>div {
+	background-color: #f1f1f1;
+	width: 50%;
+	padding: 10px;
+}
+
+.content {
+	width: 100%;
+	word-break: break-word;
 }
 </style>
 </head>
@@ -65,9 +76,6 @@ body {
 	<div class="nav-bar">
 		<nav>
 			<a href="/userInfo">Profile</a> |
-			<!-- <a href="/css/">CSS</a> |
-                <a href="/js/">JavaScript</a> |
-                <a href="/python/">Python</a> -->
 		</nav>
 	</div>
 
@@ -110,19 +118,28 @@ body {
 
 	<c:forEach var="s" items="${allComments}">
 
-		<div class="myDiv">
-			<a href="${pageContext.request.contextPath}/comment/delete/?id=${s.commentID}" class="btn-close" aria-label="Close"></a>
-			<h2>Created by ${s.authorID}</h2>
-			<p>${s.content}</p>
+		<div class="flex-container">
+			<div>
+				<p>${s.userID}</p>
+				<p class="content">${s.content}</p>
+			</div>
+			<div>
+				<a
+					href="${pageContext.request.contextPath}/comment/recipe/delete/?id=${s.commentID}"
+					class="btn-close" aria-label="Close" style="margin:"></a>
+			</div>
 		</div>
+		<hr>
 
 	</c:forEach>
 
 	<div class="comment-container">
-		<form action="/${pageContext.request.contextPath}/comment/recipe/add">
-			<textarea class="textBox" name="w3review" rows="4"></textarea>
-			<br> <input type="submit" value="Submit">
-		</form>
+		<form:form
+			action="${pageContext.request.contextPath}/comment/recipe/add"
+			method="POST" class="form-horizontal" modelAttribute="comment">
+			<form:input type="text" class="form-control" path="Content" />
+			<form:button type="submit" class="btn btn-primary">Submit</form:button>
+		</form:form>
 	</div>
 </body>
 </html>

@@ -17,18 +17,18 @@ public class CommentDAOImpl {
 
 	private final String SQL_CREATE_COMMENT_RECIPE = "INSERT INTO comments (Content, UserID, RecipeID) VALUES (?,?,?)";
 	private final String SQL_CREATE_COMMENT_MENU = "INSERT INTO comments (Content, UserID, MenuID) VALUES (?,?,?)";
-	private final String SQL_GET_ALL_COMMENTS = "SELECT * FROM comments";
+	private final String SQL_GET_ALL_COMMENTS_BY_RECIPEID = "SELECT * FROM comments Where RecipeID = ?";
+	private final String SQL_DELETE_COMMENT = "DELETE FROM comments WHERE CommentID = ?";
+	private final String SELECT_COMMENT_BY_ID = "SELECT * FROM comment WHERE CommentID = ?";
 
 	@Autowired
 	public CommentDAOImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
-	public ArrayList<Comment_model> getAllComments()	{
+	public ArrayList<Comment_model> getCommentByRecipeID(int recipeID){
 		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
-		
-		allComments = (ArrayList<Comment_model>) jdbcTemplate.query(SQL_GET_ALL_COMMENTS, new CommentRowMapper_computingcooker());
-		
+		allComments = (ArrayList<Comment_model>) jdbcTemplate.query(SQL_GET_ALL_COMMENTS_BY_RECIPEID, new Object[] {recipeID}, new CommentRowMapper_computingcooker());
 		return allComments;
 	}
 	
@@ -38,5 +38,9 @@ public class CommentDAOImpl {
 	
 	public boolean createCommentForRecipe(Comment_model newComment) {
 		return jdbcTemplate.update(SQL_CREATE_COMMENT_RECIPE, newComment.getContent(), newComment.getUserID(), newComment.getRecipeID()) > 0;
+	}
+	
+	public boolean deleteComment(int id) {
+		return jdbcTemplate.update(SQL_DELETE_COMMENT, id) > 0;
 	}
 }

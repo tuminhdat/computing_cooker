@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -146,14 +147,18 @@ public class Recipe_controller {
 		if (userName == null) {
 			return "redirect:/loginform";
 		} else {
+			session.setAttribute("recipeID", id);
+			
 			Recipe_model selectedRecipe = recipeDAOImpl.getRecipeById(id);
 			model.addAttribute("selectedRecipe", selectedRecipe);
 			
 			Integer userID = (Integer) session.getAttribute("userid");
 			
 			ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
-			allComments = commentDAO.getAllComments();			
+			allComments = commentDAO.getCommentByRecipeID(id);			
 			model.addAttribute("allComments", allComments);
+			
+			model.addAttribute("comment", new Comment_model());
 			
 			return "viewRecipe";
 		}
