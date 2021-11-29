@@ -8,6 +8,11 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
 <style>
 #myTable {
 	border-collapse: collapse;
@@ -47,6 +52,22 @@ body {
 .textBox {
 	width: 100%;
 }
+
+.flex-container {
+	display: flex;
+	width: 50%;
+}
+
+.flex-container>div {
+	background-color: #f1f1f1;
+	width: 50%;
+	padding: 10px;
+}
+
+.content {
+	width: 100%;
+	word-break: break-word;
+}
 </style>
 </head>
 <body>
@@ -77,11 +98,30 @@ body {
 		</c:forEach>
 	</table>
 
+	<c:forEach var="s" items="${allComments}">
+
+		<div class="flex-container">
+			<div>
+				<p>${s.userID}</p>
+				<p class="content">${s.content}</p>
+			</div>
+			<div>
+				<a
+					href="${pageContext.request.contextPath}/comment/menu/delete/?id=${s.commentID}"
+					class="btn-close" aria-label="Close" style="margin:"></a>
+			</div>
+		</div>
+		<hr>
+
+	</c:forEach>
+
 	<div class="comment-container">
-		<form action="/action_page.php">
-			<textarea class="textBox" name="w3review" rows="4"></textarea>
-			<br> <input type="submit" value="Submit">
-		</form>
+		<form:form
+			action="${pageContext.request.contextPath}/comment/menu/add"
+			method="POST" class="form-horizontal" modelAttribute="comment">
+			<form:input type="text" class="form-control" path="Content" />
+			<form:button type="submit" class="btn btn-primary">Submit</form:button>
+		</form:form>
 	</div>
 </body>
 </html>

@@ -20,6 +20,7 @@ public class CommentDAOImpl {
 	private final String SQL_GET_ALL_COMMENTS_BY_RECIPEID = "SELECT * FROM comments Where RecipeID = ?";
 	private final String SQL_DELETE_COMMENT = "DELETE FROM comments WHERE CommentID = ?";
 	private final String SELECT_COMMENT_BY_ID = "SELECT * FROM comment WHERE CommentID = ?";
+	private final String SQL_GET_ALL_COMMENTS_BY_MENUID = "SELECT * FROM comments Where MenuID = ?";
 
 	@Autowired
 	public CommentDAOImpl(DataSource dataSource) {
@@ -29,6 +30,12 @@ public class CommentDAOImpl {
 	public ArrayList<Comment_model> getCommentByRecipeID(int recipeID){
 		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
 		allComments = (ArrayList<Comment_model>) jdbcTemplate.query(SQL_GET_ALL_COMMENTS_BY_RECIPEID, new Object[] {recipeID}, new CommentRowMapper_computingcooker());
+		return allComments;
+	}
+	
+	public ArrayList<Comment_model> getCommentByMenuID(int menuID){
+		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
+		allComments = (ArrayList<Comment_model>) jdbcTemplate.query(SQL_GET_ALL_COMMENTS_BY_MENUID, new Object[] {menuID}, new CommentRowMapper_computingcooker());
 		return allComments;
 	}
 	

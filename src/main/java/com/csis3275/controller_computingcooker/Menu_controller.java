@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.csis3275.dao_computingcooker.CommentDAOImpl;
 import com.csis3275.dao_computingcooker.MenuDAOImpl;
+import com.csis3275.model_computingcooker.Comment_model;
 import com.csis3275.model_computingcooker.MenuRecipe_model;
 import com.csis3275.model_computingcooker.Menu_model;
 import com.csis3275.model_computingcooker.Recipe_model;
@@ -23,6 +25,9 @@ public class Menu_controller {
 
 	@Autowired
 	public MenuDAOImpl menuDAO;
+	
+	@Autowired
+	public CommentDAOImpl commentDAO;
 
 	public Menu_model setupAddForm() {
 		return new Menu_model();
@@ -88,10 +93,18 @@ public class Menu_controller {
 
 	@GetMapping("/menu/view")
 	public String getMenuView(@RequestParam(required = true) int menuid, Model model, HttpSession session) {
+		session.setAttribute("menuID", menuid);
 		Menu_model menu = menuDAO.getMenuByID(menuid);
 		ArrayList<MenuRecipe_model> menuRecipes = menuDAO.getMenuRecipeByMenuID(menuid);
 		model.addAttribute("menu", menu);
 		model.addAttribute("menuRecipes", menuRecipes);
+		
+		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
+		allComments = commentDAO.getCommentByMenuID(menuid);			
+		model.addAttribute("allComments", allComments);
+		
+		model.addAttribute("comment", new Comment_model());
+		
 		return "viewMenu";
 	}
 	
