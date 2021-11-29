@@ -43,7 +43,8 @@ public class user_controller {
 	}
 	
 	@GetMapping("/")
-	public String startPage() {
+	public String startPage(Model model, HttpSession session) {
+		model.addAttribute("userLogin", session.getAttribute("userid"));
 		return "index";
 	}
 
@@ -71,7 +72,7 @@ public class user_controller {
 			session.setAttribute("userName", currentUser.getUserName());
 			session.setAttribute("password", getMd5(findUser.getUserPassword()));
 			model.addAttribute("message", "Hello " + currentUser.getFirstName() + " " + currentUser.getLastName());
-			return "redirect:/userInfo";
+			return "redirect:/";
 		}
 	}
 	
