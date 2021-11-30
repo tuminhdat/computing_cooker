@@ -150,7 +150,7 @@ body {
 		<div class="flex-container">
 			<div class="comment-content">
 				<p>
-					<strong>${s.userID}</strong>
+					<strong>${s.commentAuthor}</strong>
 				</p>
 				<p class="content">${s.content}</p>
 			</div>

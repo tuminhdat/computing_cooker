@@ -29,7 +29,7 @@ public class Comment_controller {
 		
 		createComment.setUserID((int) session.getAttribute("userid"));
 		createComment.setRecipeID((int) session.getAttribute("recipeID"));
-		
+		createComment.setCommentAuthor((String) session.getAttribute("userName"));
 		
 		// Add the comment
 		commentDAOImpl.createCommentForRecipe(createComment);
@@ -44,7 +44,7 @@ public class Comment_controller {
 		
 		createComment.setUserID((int) session.getAttribute("userid"));
 		createComment.setMenuID((int) session.getAttribute("menuID"));
-		
+		createComment.setCommentAuthor((String) session.getAttribute("userName"));
 		
 		// Add the comment
 		commentDAOImpl.createCommentForMenu(createComment);

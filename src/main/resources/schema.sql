@@ -29,7 +29,8 @@ CREATE TABLE comments (
 	Content varchar(max),
 	UserID int,
 	RecipeID int,
-	MenuID int
+	MenuID int,
+	CommentAuthor varchar(max)
 );
 
 CREATE TABLE menus (

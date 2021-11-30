@@ -16,7 +16,7 @@ public class CommentRowMapper_computingcooker implements RowMapper<Comment_model
 		userComment.setUserID(rs.getInt("UserID"));
 		userComment.setRecipeID(rs.getInt("RecipeID"));
 		userComment.setMenuID(rs.getInt("MenuID"));
-		
+		userComment.setCommentAuthor(rs.getString("CommentAuthor"));
 		
 		
 		return userComment;
