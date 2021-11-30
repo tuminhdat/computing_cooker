@@ -99,6 +99,9 @@ public class Menu_controller {
 		model.addAttribute("menu", menu);
 		model.addAttribute("menuRecipes", menuRecipes);
 		
+		Integer userID = (Integer) session.getAttribute("userid");
+		model.addAttribute("user", userID);
+		
 		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
 		allComments = commentDAO.getCommentByMenuID(menuid);			
 		model.addAttribute("allComments", allComments);

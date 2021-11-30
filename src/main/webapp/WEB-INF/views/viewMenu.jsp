@@ -142,17 +142,28 @@ body {
 				</p>
 				<p class="content">${s.content}</p>
 			</div>
-			<div class="dropdown">
-				<button style="border: none;">
-					<strong>...</strong>
-				</button>
-				<div class="dropdown-content">
-					<a
-						href="${pageContext.request.contextPath}/comment/menu/delete/?id=${s.commentID}">Delete</a>
-					<a
-						href="${pageContext.request.contextPath}/comment/update/?id=${s.commentID}">Edit</a>
-				</div>
-			</div>
+			<c:choose>
+				<c:when test="${s.userID == user}">
+					<div class="dropdown">
+						<button style="border: none;">
+							<strong>...</strong>
+						</button>
+						<div class="dropdown-content">
+							<a
+								href="${pageContext.request.contextPath}/comment/menu/delete/?id=${s.commentID}">Delete</a>
+							<a
+								href="${pageContext.request.contextPath}/comment/update/?id=${s.commentID}">Edit</a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<c:if test="${user == menu.getUserID()}">
+						<a
+							href="${pageContext.request.contextPath}/comment/menu/delete/?id=${s.commentID}"
+							class="btn-close" aria-label="Close"></a>
+					</c:if>
+				</c:otherwise>
+			</c:choose>
 		</div>
 
 	</c:forEach>

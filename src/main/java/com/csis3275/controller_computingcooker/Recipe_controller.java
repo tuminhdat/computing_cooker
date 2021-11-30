@@ -157,6 +157,8 @@ public class Recipe_controller {
 			
 			Integer userID = (Integer) session.getAttribute("userid");
 			
+			model.addAttribute("user", userName);
+			
 			ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
 			
 			allComments = commentDAO.getCommentByRecipeID(id);
