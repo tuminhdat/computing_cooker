@@ -1,5 +1,8 @@
 package com.csis3275.controller_computingcooker;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,12 +77,40 @@ public class Comment_controller {
 		return "redirect:/menu/view/?menuid=" + menuID;
 	}
 	
-	@GetMapping("/comment/recipe/update")
+	@GetMapping("/comment/update")
 	public String editCommentForm(@RequestParam(required = true) int id, Model model) {
 
 		Comment_model selectedComment = commentDAOImpl.getCommentById(id);
 		model.addAttribute("selectedComment", selectedComment);
 
-		return "";
+		return "editComment";
+	}
+	
+	@PostMapping("/comment/recipe/edit")
+	public String updateRecipeComment(@ModelAttribute("selectedComment") Comment_model updatedComment, Model model, HttpSession session) {
+		
+		commentDAOImpl.updateComment(updatedComment);
+		int id = updatedComment.getRecipeID();
+		
+		List<Comment_model> comments = commentDAOImpl.getCommentByRecipeID(id);
+		model.addAttribute("comment", comments);
+		
+		
+		return "redirect:/recipe/view/?id=" + id;
+
+	}
+	
+	@PostMapping("/comment/menu/edit")
+	public String updateMenuComment(@ModelAttribute("selectedComment") Comment_model updatedComment, Model model, HttpSession session) {
+		
+		commentDAOImpl.updateComment(updatedComment);
+		int id = updatedComment.getMenuID();
+		
+		List<Comment_model> comments = commentDAOImpl.getCommentByMenuID(id);
+		model.addAttribute("comment", comments);
+		
+		
+		return "redirect:/menu/view/?menuid=" + id;
+
 	}
 }

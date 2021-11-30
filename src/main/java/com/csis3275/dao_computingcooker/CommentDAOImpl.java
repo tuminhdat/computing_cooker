@@ -16,24 +16,26 @@ public class CommentDAOImpl {
 	JdbcTemplate jdbcTemplate;
 
 	private final String SQL_CREATE_COMMENT_RECIPE = "INSERT INTO comments (Content, UserID, RecipeID, CommentAuthor) VALUES (?,?,?,?)";
-	private final String SQL_CREATE_COMMENT_MENU = "INSERT INTO comments (Content, UserID, MenuID, Author) VALUES (?,?,?,?)";
+	private final String SQL_CREATE_COMMENT_MENU = "INSERT INTO comments (Content, UserID, MenuID, CommentAuthor) VALUES (?,?,?,?)";
 	private final String SQL_GET_ALL_COMMENTS_BY_RECIPEID = "SELECT * FROM comments Where RecipeID = ?";
 	private final String SQL_DELETE_COMMENT = "DELETE FROM comments WHERE CommentID = ?";
-	private final String SELECT_COMMENT_BY_ID = "SELECT * FROM comment WHERE CommentID = ?";
+	private final String SELECT_COMMENT_BY_ID = "SELECT * FROM comments WHERE CommentID = ?";
 	private final String SQL_GET_ALL_COMMENTS_BY_MENUID = "SELECT * FROM comments Where MenuID = ?";
-	private final String SQL_UPDATE_COMMENT = "UPDATE comment SET Content = ? WHERE CommentID = ?";
+	private final String SQL_UPDATE_COMMENT = "UPDATE comments SET Content = ? WHERE CommentID = ?";
 
 	@Autowired
 	public CommentDAOImpl(DataSource dataSource) {
 		jdbcTemplate = new JdbcTemplate(dataSource);
 	}
 	
+	@SuppressWarnings("deprecation")
 	public ArrayList<Comment_model> getCommentByRecipeID(int recipeID){
 		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
 		allComments = (ArrayList<Comment_model>) jdbcTemplate.query(SQL_GET_ALL_COMMENTS_BY_RECIPEID, new Object[] {recipeID}, new CommentRowMapper_computingcooker());
 		return allComments;
 	}
 	
+	@SuppressWarnings("deprecation")
 	public ArrayList<Comment_model> getCommentByMenuID(int menuID){
 		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
 		allComments = (ArrayList<Comment_model>) jdbcTemplate.query(SQL_GET_ALL_COMMENTS_BY_MENUID, new Object[] {menuID}, new CommentRowMapper_computingcooker());

@@ -162,7 +162,7 @@ body {
 					<a
 						href="${pageContext.request.contextPath}/comment/recipe/delete/?id=${s.commentID}">Delete</a>
 					<a
-						href="${pageContext.request.contextPath}/comment/recipe/edit/?id=${s.commentID}">Edit</a>
+						href="${pageContext.request.contextPath}/comment/update/?id=${s.commentID}">Edit</a>
 				</div>
 			</div>
 		</div>

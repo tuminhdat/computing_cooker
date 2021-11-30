@@ -60,13 +60,46 @@ body {
 
 .flex-container>div {
 	background-color: #f1f1f1;
-	width: 50%;
+}
+
+.comment-content {
 	padding: 10px;
+	width: 50%;
 }
 
 .content {
 	width: 100%;
 	word-break: break-word;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	height: 1%;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
 }
 </style>
 </head>
@@ -98,20 +131,29 @@ body {
 		</c:forEach>
 	</table>
 
+	<h3>Comments</h3>
+
 	<c:forEach var="s" items="${allComments}">
 
 		<div class="flex-container">
-			<div>
-				<p>${s.userID}</p>
+			<div class="comment-content">
+				<p>
+					<strong>${s.commentAuthor}</strong>
+				</p>
 				<p class="content">${s.content}</p>
 			</div>
-			<div>
-				<a
-					href="${pageContext.request.contextPath}/comment/menu/delete/?id=${s.commentID}"
-					class="btn-close" aria-label="Close" style="margin:"></a>
+			<div class="dropdown">
+				<button style="border: none;">
+					<strong>...</strong>
+				</button>
+				<div class="dropdown-content">
+					<a
+						href="${pageContext.request.contextPath}/comment/menu/delete/?id=${s.commentID}">Delete</a>
+					<a
+						href="${pageContext.request.contextPath}/comment/update/?id=${s.commentID}">Edit</a>
+				</div>
 			</div>
 		</div>
-		<hr>
 
 	</c:forEach>
 
