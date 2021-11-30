@@ -15,8 +15,8 @@ import com.csis3275.model_computingcooker.CommentRowMapper_computingcooker;
 public class CommentDAOImpl {
 	JdbcTemplate jdbcTemplate;
 
-	private final String SQL_CREATE_COMMENT_RECIPE = "INSERT INTO comments (Content, UserID, RecipeID) VALUES (?,?,?)";
-	private final String SQL_CREATE_COMMENT_MENU = "INSERT INTO comments (Content, UserID, MenuID) VALUES (?,?,?)";
+	private final String SQL_CREATE_COMMENT_RECIPE = "INSERT INTO comments (Content, UserID, RecipeID, CommentAuthor) VALUES (?,?,?,?)";
+	private final String SQL_CREATE_COMMENT_MENU = "INSERT INTO comments (Content, UserID, MenuID, Author) VALUES (?,?,?,?)";
 	private final String SQL_GET_ALL_COMMENTS_BY_RECIPEID = "SELECT * FROM comments Where RecipeID = ?";
 	private final String SQL_DELETE_COMMENT = "DELETE FROM comments WHERE CommentID = ?";
 	private final String SELECT_COMMENT_BY_ID = "SELECT * FROM comment WHERE CommentID = ?";
@@ -41,11 +41,11 @@ public class CommentDAOImpl {
 	}
 	
 	public boolean createCommentForMenu(Comment_model newComment) {
-		return jdbcTemplate.update(SQL_CREATE_COMMENT_MENU, newComment.getContent(), newComment.getUserID(), newComment.getMenuID()) > 0;
+		return jdbcTemplate.update(SQL_CREATE_COMMENT_MENU, newComment.getContent(), newComment.getUserID(), newComment.getMenuID(), newComment.getCommentAuthor()) > 0;
 	}
 	
 	public boolean createCommentForRecipe(Comment_model newComment) {
-		return jdbcTemplate.update(SQL_CREATE_COMMENT_RECIPE, newComment.getContent(), newComment.getUserID(), newComment.getRecipeID()) > 0;
+		return jdbcTemplate.update(SQL_CREATE_COMMENT_RECIPE, newComment.getContent(), newComment.getUserID(), newComment.getRecipeID(), newComment.getCommentAuthor()) > 0;
 	}
 	
 	public boolean deleteComment(int id) {
