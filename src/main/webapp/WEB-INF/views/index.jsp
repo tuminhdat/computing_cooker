@@ -21,6 +21,20 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
+
+<style>
+.flex-container {
+	display: flex;
+}
+
+.flex-container>div {
+	margin: 10px;
+	padding: 20px;
+	width: 50%;
+	border: 1px solid black;
+	padding: 20px;
+}
+</style>
 <title>Home</title>
 </head>
 <body>
@@ -65,60 +79,56 @@
 			</div>
 		</div>
 	</nav>
+	<div style="text-align: center">
+		<h1>Welcome to Computing Cooker</h1>
+		<p>Below are the recently added recipes and menus. Enjoy cooking.</p>
+	</div>
 
+	<div class="flex-container">
+		<div>
+			<h2>Recipe List</h2>
+			<table class="table table-striped">
+				<thead>
+					<th>Recipe Title</th>
+					<th>Description</th>
+					<th>Author</th>
+				</thead>
 
-	<div class="container">
+				<tbody>
+					<!-- Garbage Out!-->
+					<c:forEach var="s" items="${allRecipes}">
 
-		<c:if test="${ messages !=null }">
+						<tr>
+							<td><a
+								href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}">${s.recipeTitle}</a></td>
+							<td>${s.description}</td>
+							<td>${s.author}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<div>
+			<h2>Menu List</h2>
+			<table class="table table-striped">
+				<thead>
+					<th>Menu Title</th>
+					<th>Description</th>
+				</thead>
 
-			<c:forEach var="message" items="${messages}">
+				<tbody>
+					<!-- Garbage Out!-->
+					<c:forEach var="m" items="${allMenus}">
 
-				<div class="alert alert-success fade show" role="alert">${message}</div>
-
-			</c:forEach>
-
-		</c:if>
-		<h2>Recipe List</h2>
-		<table class="table table-striped">
-			<thead>
-				<th>Recipe Title</th>
-				<th>Description</th>
-				<th>Author</th>
-			</thead>
-
-			<tbody>
-				<!-- Garbage Out!-->
-				<c:forEach var="s" items="${allRecipes}">
-
-					<tr>
-						<td><a
-							href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}">${s.recipeTitle}</a></td>
-						<td>${s.description}</td>
-						<td>${s.author}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<hr>
-		<h2>Menu List</h2>
-		<table class="table table-striped">
-			<thead>
-				<th>Menu Title</th>
-				<th>Description</th>
-			</thead>
-
-			<tbody>
-				<!-- Garbage Out!-->
-				<c:forEach var="m" items="${allMenus}">
-
-					<tr>
-						<td><a
-							href="${pageContext.request.contextPath}/menu/view/?menuid=${m.getMenuID()}">${m.getMenuTitle()}</a></td>
-						<td>${m.description}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
+						<tr>
+							<td><a
+								href="${pageContext.request.contextPath}/menu/view/?menuid=${m.getMenuID()}">${m.getMenuTitle()}</a></td>
+							<td>${m.description}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </body>
 </html>

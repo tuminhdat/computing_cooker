@@ -8,20 +8,14 @@
 <html>
 <head>
 <title>Login</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-	crossorigin="anonymous"></script>
 <script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	crossorigin="anonymous"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
 <link rel="stylesheet" type="text/css" href="resources/login.css">
 </head>
@@ -48,22 +42,18 @@
 		<!-- Button trigger modal -->
 		<p style="color: #08ffd1;">
 			Don't have account?
-			<button type="button" class="btn btn-success" data-toggle="modal"
-				data-target="#exampleModal">Register</button>
+			<button type="button" class="btn btn-success" data-bs-toggle="modal"
+				data-bs-target="#exampleModal">Register</button>
 		</p>
 
 		<!-- Modal -->
-		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+		<div class="modal fade" id="exampleModal" tabindex="-1"
 			aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
+			<div class="modal-dialog modal-dialog-centered">
 				<div class="modal-content">
 					<div class="modal-header">
 						<h5 class="modal-title" id="exampleModalLabel">Registration
 							form</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
 					</div>
 					<div class="modal-body">
 						<p>(*) - Required Information</p>
@@ -83,12 +73,14 @@
 							</div>
 							<div class="mb-3">
 								First Name (*)
-								<form:input type="text" class="form-control" path="firstName" required="required"/>
+								<form:input type="text" class="form-control" path="firstName"
+									required="required" />
 							</div>
 
 							<div class="mb-3">
 								Last Name (*)
-								<form:input type="text" class="form-control" path="lastName" required="required"/>
+								<form:input type="text" class="form-control" path="lastName"
+									required="required" />
 							</div>
 
 							<div class="mb-3">
@@ -97,7 +89,8 @@
 							</div>
 							<div class="mb-3">
 								Email (*)
-								<form:input type="email" class="form-control" path="email" required="required"/>
+								<form:input type="email" class="form-control" path="email"
+									required="required" />
 							</div>
 							<div class="mb-3">
 								Description
@@ -105,7 +98,7 @@
 							</div>
 
 
-							<form:button type="submit" cssClass="btn btn-primary">Submit</form:button>
+							<form:button type="submit" class="btn btn-primary">Submit</form:button>
 							<p>
 								Already have an account? <a href="/loginform">Login</a>
 							</p>
