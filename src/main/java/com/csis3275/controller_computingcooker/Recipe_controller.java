@@ -109,7 +109,7 @@ public class Recipe_controller {
 		model.addAttribute("message",
 				"Edited recipe " + updatedRecipe.getRecipeTitle() + ", by " + updatedRecipe.getAuthor());
 
-		return "redirect:/userInfo";
+		return "redirect:/userProfile/recipe/list";
 
 	}
 
