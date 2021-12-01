@@ -43,11 +43,11 @@
 
 			<div class="mb-3">
 				Recipe Title
-				<form:input type="text" class="form-control" path="RecipeTitle" />
+				<form:input type="text" class="form-control" path="RecipeTitle" required="required"/>
 			</div>
 			<div class="mb-3">
 				Description
-				<form:input type="text" class="form-control" path="Description" />
+				<form:input type="text" class="form-control" path="Description" required="required"/>
 			</div>
 			<div class="mb-3">
 				Preparation Time
@@ -63,11 +63,11 @@
 			</div>
 			<div class="mb-3">
 				Ingredient
-				<form:input type="text" class="form-control" path="Ingredient" />
+				<form:input type="text" class="form-control" path="Ingredient" required="required"/>
 			</div>
 			<div class="mb-3">
 				Preparation
-				<form:input type="text" class="form-control" path="Preparation" />
+				<form:input type="text" class="form-control" path="Preparation" required="required"/>
 			</div>
 			<form:button type="submit" class="btn btn-primary">Submit</form:button>
 		</form:form>
