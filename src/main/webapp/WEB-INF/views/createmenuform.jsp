@@ -5,6 +5,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+	crossorigin="anonymous">
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+	crossorigin="anonymous"></script>
 <title>Create Menu</title>
 <style>
 .textBox {
@@ -62,24 +71,41 @@ body {
 </style>
 </head>
 <body>
-	<div class="nav-bar">
-		<nav style="float: right;">
-			<a href="/">Home</a>
-			<c:choose>
-				<c:when test="${user != null}">
-					<div class="dropdown">
-						<a href="#">Your Account</a>
-						<div class="dropdown-content">
-							<a href="/userProfile">Profile</a> <a href="/invalidate/session">Logout</a>
-						</div>
-					</div>
-				</c:when>
-				<c:otherwise>
-					<a href="/loginform">Login</a>
-				</c:otherwise>
-			</c:choose>
-		</nav>
-	</div>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<a class="navbar-brand" href="/">Computing Cooker</a>
+			<button class="navbar-toggler" type="button"
+				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<c:choose>
+						<c:when test="${user == null}">
+							<li class="nav-item"><a class="nav-link" href="/loginform">Login</a></li>
+						</c:when>
+						<c:otherwise>
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Your Account </a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item" href="/userProfile">Profile</a></li>
+									<li><a class="dropdown-item" href="/invalidate/session">Logout</a></li>
+								</ul></li>
+						</c:otherwise>
+					</c:choose>
+				</ul>
+				<form class="d-flex" action="/searching" method="GET">
+					<input class="form-control me-2" type="search" placeholder="Search"
+						aria-label="Search" id="item" name="item">
+					<button class="btn btn-outline-success" type="submit">Search</button>
+				</form>
+			</div>
+		</div>
+	</nav>
 
 	<h1 class="title1">Create Menu</h1>
 

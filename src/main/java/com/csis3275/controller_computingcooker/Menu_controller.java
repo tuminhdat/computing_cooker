@@ -134,7 +134,7 @@ public class Menu_controller {
 	@RequestMapping("/menu/delete")
 	public String doDeleteMenu(@RequestParam(required = true) int menuid, Model model, HttpSession session) {
 		menuDAO.deleteMenu(menuid);
-		return "redirect:/userInfo";
+		return "redirect:/userProfile/menu/list";
 	}
 	
 	@RequestMapping("/menu/editform")

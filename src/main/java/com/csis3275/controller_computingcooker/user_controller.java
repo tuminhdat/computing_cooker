@@ -193,7 +193,7 @@ public class user_controller {
 		}
 	}
 
-	@PostMapping("/userInfo/editform")
+	@GetMapping("/userInfo/editform")
 	public String getEditform(Model model, HttpSession session) {
 		String userName = (String) session.getAttribute("userName");
 		String password = (String) session.getAttribute("password");

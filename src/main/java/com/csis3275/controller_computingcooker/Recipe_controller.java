@@ -117,18 +117,10 @@ public class Recipe_controller {
 	public String deleteRecipe(@RequestParam(required = true) int id, Model model, HttpSession session) {
 
 		Recipe_model recipe = recipeDAOImpl.getRecipeById(id);
-		String recipeTitle = recipe.getRecipeTitle();
 		recipeDAOImpl.deleteRecipe(id);
 		menuDAO.deleteRecipe(id);
 
-		// Populate the message into the sesession
-		ArrayList<String> messages = new ArrayList<String>();
-		messages = session.getAttribute("messages") != null ? (ArrayList<String>) session.getAttribute("messages")
-				: new ArrayList<String>();
-		messages.add("Deleted recipe " + recipeTitle);
-		session.setAttribute("messages", messages);
-
-		return "redirect:/userInfo";
+		return "redirect:/userProfile/recipe/list";
 	}
 
 	@GetMapping("/recipe/view/")
