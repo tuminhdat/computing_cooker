@@ -50,7 +50,7 @@
 
 						<div class="mb-3">
 							<form:input type="text" name="Content" class="form-control"
-								value="${selectedComment.getContent()}" path="Content" />
+								value="${selectedComment.getContent()}" path="Content" required="required"/>
 						</div>
 					</div>
 
@@ -77,7 +77,7 @@
 
 						<div class="mb-3">
 							<form:input type="text" name="Content" class="form-control"
-								value="${selectedComment.getContent()}" path="Content" />
+								value="${selectedComment.getContent()}" path="Content" required="required"/>
 						</div>
 					</div>
 

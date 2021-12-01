@@ -46,13 +46,13 @@
 			<div class="mb-3">
 				Recipe Title
 				<form:input type="text" name="RecipeTitle" class="form-control"
-					value="${recipe.getRecipeTitle()}" path="RecipeTitle" />
+					value="${recipe.getRecipeTitle()}" path="RecipeTitle" required="required"/>
 			</div>
 
 			<div class="mb-3">
 				Description
 				<form:input type="text" name="Description" class="form-control"
-					value="${recipe.getDescription()}" path="Description" />
+					value="${recipe.getDescription()}" path="Description" required="required"/>
 			</div>
 
 			<div class="mb-3">
@@ -76,13 +76,13 @@
 			<div class="mb-3">
 				Ingredient
 				<form:input type="text" name="Ingredient" class="form-control"
-					value="${recipe.getIngredient()}" path="Ingredient" />
+					value="${recipe.getIngredient()}" path="Ingredient" required="required"/>
 			</div>
 
 			<div class="mb-3">
 				Preparation
 				<form:input type="text" name="Preparation" class="form-control"
-					value="${recipe.getPreparation()}" path="Preparation" />
+					value="${recipe.getPreparation()}" path="Preparation" required="required"/>
 			</div>
 			<form:button type="submit" class="btn btn-primary">Submit</form:button>
 		</form:form>

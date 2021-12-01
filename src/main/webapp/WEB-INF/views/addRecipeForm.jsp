@@ -37,16 +37,16 @@
 
 	<div class="container">
 		<h1 class="title1">Create Recipe</h1>
-
+		<p>(*) - Required Information</p>
 		<form:form action="${pageContext.request.contextPath}/recipe/add"
 			method="POST" class="form-horizontal" modelAttribute="recipe">
 
 			<div class="mb-3">
-				Recipe Title
+				Recipe Title (*)
 				<form:input type="text" class="form-control" path="RecipeTitle" required="required"/>
 			</div>
 			<div class="mb-3">
-				Description
+				Description (*)
 				<form:input type="text" class="form-control" path="Description" required="required"/>
 			</div>
 			<div class="mb-3">
@@ -62,11 +62,11 @@
 				<form:input type="number" class="form-control" path="NumServe" />
 			</div>
 			<div class="mb-3">
-				Ingredient
+				Ingredient (*)
 				<form:input type="text" class="form-control" path="Ingredient" required="required"/>
 			</div>
 			<div class="mb-3">
-				Preparation
+				Preparation (*)
 				<form:input type="text" class="form-control" path="Preparation" required="required"/>
 			</div>
 			<form:button type="submit" class="btn btn-primary">Submit</form:button>

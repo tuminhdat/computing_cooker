@@ -41,25 +41,24 @@
 		</nav>
 	</div>
 	<div class="container">
-		<h1>Edit form</h1>
 
 		<table class="table table-striped">
 
 			</tbody>
 		</table>
-		<h3>Information</h3>
+		<h2>Information</h2>
 		<form:form action="${pageContext.request.contextPath}/userInfo/edit"
 			method="POST" cssClass="form-horizontal" modelAttribute="user">
 			<div class="mb-3">
 				First Name
 				<form:input type="text" name="FirstName" class="form-control"
-					value="${user.getFirstName()}" path="firstName" />
+					value="${user.getFirstName()}" path="firstName" required="required"/>
 			</div>
 
 			<div class="mb-3">
 				Last Name
 				<form:input type="text" name="LastName" class="form-control"
-					value="${user.getLastName()}" path="lastName" />
+					value="${user.getLastName()}" path="lastName" required="required"/>
 			</div>
 
 			<div class="mb-3">
@@ -70,7 +69,7 @@
 			<div class="mb-3">
 				Email
 				<form:input type="email" name="Email" class="form-control"
-					value="${user.getEmail()}" path="email" />
+					value="${user.getEmail()}" path="email" required="required"/>
 			</div>
 			<div class="mb-3">
 				Description

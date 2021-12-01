@@ -82,13 +82,13 @@
 									path="userPassword" required="required" />
 							</div>
 							<div class="mb-3">
-								First Name
-								<form:input type="text" class="form-control" path="firstName" />
+								First Name (*)
+								<form:input type="text" class="form-control" path="firstName" required="required"/>
 							</div>
 
 							<div class="mb-3">
-								Last Name
-								<form:input type="text" class="form-control" path="lastName" />
+								Last Name (*)
+								<form:input type="text" class="form-control" path="lastName" required="required"/>
 							</div>
 
 							<div class="mb-3">
@@ -96,8 +96,8 @@
 								<form:input type="Number" class="form-control" path="age" />
 							</div>
 							<div class="mb-3">
-								Email
-								<form:input type="email" class="form-control" path="email" />
+								Email (*)
+								<form:input type="email" class="form-control" path="email" required="required"/>
 							</div>
 							<div class="mb-3">
 								Description
