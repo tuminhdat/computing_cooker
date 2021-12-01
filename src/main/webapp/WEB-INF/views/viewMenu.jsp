@@ -13,6 +13,7 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="resources/navBar.css">
 <style>
 #myTable {
 	border-collapse: collapse;
@@ -32,21 +33,6 @@
 
 #myTable tr.header, #myTable tr:hover {
 	background-color: #f1f1f1;
-}
-
-body {
-	padding: 10px;
-}
-
-.title1 {
-	color: #1ecbe1;
-}
-
-.nav-bar {
-	background-color: orange;
-	font-size: 30px;
-	padding: 30px;
-	font-weight: bold;
 }
 
 .textBox {
@@ -71,50 +57,18 @@ body {
 	width: 100%;
 	word-break: break-word;
 }
-
-.dropdown {
-	position: relative;
-	display: inline-block;
-	height: 1%;
-}
-
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f1f1f1;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-}
-
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-}
-
-.dropdown-content a:hover {
-	background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-	display: block;
-}
-
 </style>
 </head>
 <body>
 	<div class="nav-bar">
-		<nav>
-			<a href="/">Home</a> |
+		<nav style="float: right;">
+			<a href="/">Home</a>
 			<c:choose>
 				<c:when test="${user != null}">
 					<div class="dropdown">
-						<a>Your Account</a>
+						<a href="#">Your Account</a>
 						<div class="dropdown-content">
-							<a href="/userInfo">Profile</a>
-							<a href="/invalidate/session">Logout</a>
+							<a href="/userProfile">Profile</a> <a href="/invalidate/session">Logout</a>
 						</div>
 					</div>
 				</c:when>

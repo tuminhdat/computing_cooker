@@ -1,35 +1,29 @@
-<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%><!DOCTYPE html>
 <html>
 <head>
 <title>Create Menu</title>
-<style>
-body {
-	padding: 10px;
-}
-
-.title1 {
-	color: #1ecbe1;
-}
-
-.nav-bar {
-	background-color: orange;
-	font-size: 30px;
-	padding: 30px;
-	font-weight: bold;
-}
-
-.textBox {
-	width: 100%;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="resources/navBar.css">
 </head>
 <body>
 	<div class="nav-bar">
-		<nav>
-			<a href="">Profile</a> |
-			<!-- <a href="/css/">CSS</a> |
-                <a href="/js/">JavaScript</a> |
-                <a href="/python/">Python</a> -->
+		<nav style="float: right;">
+			<a href="/">Home</a>
+			<c:choose>
+				<c:when test="${user != null}">
+					<div class="dropdown">
+						<a href="#">Your Account</a>
+						<div class="dropdown-content">
+							<a href="/userProfile">Profile</a> <a href="/invalidate/session">Logout</a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<a href="/loginform">Login</a>
+				</c:otherwise>
+			</c:choose>
 		</nav>
 	</div>
 
@@ -37,11 +31,11 @@ body {
 
 	<form action="/menu/edit" method="post" modelAttribute="menu">
 		<label for="MenuTitle">Menu Title :</label> <br> <input
-			type="text" class="textBox" value="${menu.getMenuTitle()}" name="MenuTitle">
-		<br> <label for="Description">Menu Description :</label> <br>
+			type="text" class="textBox" value="${menu.getMenuTitle()}"
+			name="MenuTitle"> <br> <label for="Description">Menu
+			Description :</label> <br>
 
-		<textarea class="textBox"
-			name="Description" rows="4">${menu.getDescription()}</textarea>
+		<textarea class="textBox" name="Description" rows="4">${menu.getDescription()}</textarea>
 
 		<br> <input type="submit" value="Next">
 	</form>

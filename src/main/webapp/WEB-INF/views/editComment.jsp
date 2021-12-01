@@ -12,22 +12,27 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<style>
-body {
-	padding: 10px;
-}
-
-.title1 {
-	color: #1ecbe1;
-}
-
-.textBox {
-	width: 100%;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="resources/navBar.css">
 </head>
 <body>
-
+	<div class="nav-bar">
+		<nav style="float: right;">
+			<a href="/">Home</a>
+			<c:choose>
+				<c:when test="${user != null}">
+					<div class="dropdown">
+						<a href="#">Your Account</a>
+						<div class="dropdown-content">
+							<a href="/userProfile">Profile</a> <a href="/invalidate/session">Logout</a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<a href="/loginform">Login</a>
+				</c:otherwise>
+			</c:choose>
+		</nav>
+	</div>
 	<div class="container">
 		<h1 class="title1">Edit Comment</h1>
 		<c:choose>

@@ -43,13 +43,16 @@ public class Recipe_controller {
 		ArrayList<Recipe_model> userRecipes = new ArrayList<Recipe_model>();
 		userRecipes = recipeDAOImpl.getAllUserRecipe(userID);
 		model.addAttribute("userRecipes", userRecipes);
-
+		String userName = (String) session.getAttribute("userName");
+		model.addAttribute("user", userName);
 		// Return the view
 		return "myRecipes";
 	}
 
 	@GetMapping("/recipe/add")
-	public String addRecipe(Model model) {
+	public String addRecipe(Model model, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		model.addAttribute("user", userName);
 		model.addAttribute("recipe", new Recipe_model());
 
 		return "addRecipeForm";
@@ -77,8 +80,9 @@ public class Recipe_controller {
 	}
 
 	@GetMapping("/recipe/edit/")
-	public String editRecipeForm(@RequestParam(required = true) int id, Model model) {
-
+	public String editRecipeForm(@RequestParam(required = true) int id, Model model, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		model.addAttribute("user", userName);
 		Recipe_model updatedRecipe = recipeDAOImpl.getRecipeById(id);
 		model.addAttribute("recipe", updatedRecipe);
 

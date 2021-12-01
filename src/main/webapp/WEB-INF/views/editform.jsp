@@ -19,8 +19,27 @@
 	crossorigin="anonymous">
 
 <title>Edit</title>
+<link rel="stylesheet" type="text/css" href="resources/navBar.css">
 </head>
 <body>
+	<div class="nav-bar">
+		<nav style="float: right;">
+			<a href="/">Home</a>
+			<c:choose>
+				<c:when test="${user != null}">
+					<div class="dropdown">
+						<a href="#">Your Account</a>
+						<div class="dropdown-content">
+							<a href="/userProfile">Profile</a> <a href="/invalidate/session">Logout</a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<a href="/loginform">Login</a>
+				</c:otherwise>
+			</c:choose>
+		</nav>
+	</div>
 	<div class="container">
 		<h1>Edit form</h1>
 
@@ -33,25 +52,30 @@
 			method="POST" cssClass="form-horizontal" modelAttribute="user">
 			<div class="mb-3">
 				First Name
-				<form:input type="text" name="FirstName" class="form-control" value="${user.getFirstName()}" path="firstName" />
+				<form:input type="text" name="FirstName" class="form-control"
+					value="${user.getFirstName()}" path="firstName" />
 			</div>
 
 			<div class="mb-3">
 				Last Name
-				<form:input type="text" name="LastName" class="form-control" value="${user.getLastName()}" path="lastName" />
+				<form:input type="text" name="LastName" class="form-control"
+					value="${user.getLastName()}" path="lastName" />
 			</div>
 
 			<div class="mb-3">
 				Age
-				<form:input type="Number" name="Age" class="form-control" value="${user.getAge()}" path="age" />
+				<form:input type="Number" name="Age" class="form-control"
+					value="${user.getAge()}" path="age" />
 			</div>
 			<div class="mb-3">
 				Email
-				<form:input type="email" name="Email" class="form-control" value="${user.getEmail()}" path="email" />
+				<form:input type="email" name="Email" class="form-control"
+					value="${user.getEmail()}" path="email" />
 			</div>
 			<div class="mb-3">
 				Description
-				<form:input type="text" name="Description" class="form-control" value="${user.getDescription()}" path="description" />
+				<form:input type="text" name="Description" class="form-control"
+					value="${user.getDescription()}" path="description" />
 			</div>
 
 

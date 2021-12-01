@@ -63,7 +63,6 @@
 </style>
 </head>
 <body>
-
 	<h2>Menu Recipe</h2>
 
 	<table id="myTable2">
@@ -88,7 +87,8 @@
 
 	<br>
 
-	<a href="/userProfile/menu/list"><input type="button" value="Finish"></a>
+	<a href="/userProfile/menu/list"><input type="button"
+		value="Finish"></a>
 
 	<h2>Pick Recipe</h2>
 

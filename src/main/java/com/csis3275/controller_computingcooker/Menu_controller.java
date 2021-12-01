@@ -41,6 +41,9 @@ public class Menu_controller {
 		userMenus = menuDAO.getAllUserMenu(userID);
 		model.addAttribute("userMenus", userMenus);
 		session.removeAttribute("currentMenuID");
+		
+		String userName = (String) session.getAttribute("userName");
+		model.addAttribute("user", userName);
 
 		// Return the view
 		return "myMenus";
@@ -48,6 +51,8 @@ public class Menu_controller {
 	
 	@GetMapping("/menu/create/menuform")
 	public String getMenuCreateForm(Model model, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		model.addAttribute("user", userName);
 		model.addAttribute("menu", new Menu_model());
 		return "createmenuform";
 	}
@@ -80,6 +85,8 @@ public class Menu_controller {
 
 	@GetMapping("/menu/recipe")
 	public String getAllRecipeInMenu(Model model, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		model.addAttribute("user", userName);
 		Integer menuID = (Integer) session.getAttribute("currentMenuID");
 
 		ArrayList<Recipe_model> notAddedRecipe = new ArrayList<Recipe_model>();
@@ -132,6 +139,8 @@ public class Menu_controller {
 	
 	@RequestMapping("/menu/editform")
 	public String getEditForm(@RequestParam(required = true) int menuid, Model model, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		model.addAttribute("user", userName);
 		session.setAttribute("currentMenuID", menuid);
 		Menu_model menu = menuDAO.getMenuByID(menuid);
 		model.addAttribute("menu", menu);

@@ -95,7 +95,7 @@ public class user_controller {
 			return "redirect:/";
 		} else {
 			if (userDAO.checkExistUser(userName) > 0) {
-
+				model.addAttribute("user", userName);
 				return "userProfile";
 
 			} else {

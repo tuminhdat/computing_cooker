@@ -12,64 +12,25 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
 
-<style type="text/css">
-body {
-	padding: 10px;
-}
-
-.nav-bar {
-	background-color: orange;
-	padding: 30px;
-	font-weight: bold;
-}
-
-.title1 {
-	color: #1ecbe1;
-}
-
-.error {
-	color: red;
-	font-style: italics;
-}
-
-.dropdown {
-	position: relative;
-	display: inline-block;
-	height: 1%;
-}
-
-.dropdown-content {
-	display: none;
-	position: absolute;
-	background-color: #f1f1f1;
-	min-width: 160px;
-	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-	z-index: 1;
-}
-
-.dropdown-content a {
-	color: black;
-	padding: 12px 16px;
-	text-decoration: none;
-	display: block;
-}
-
-.dropdown-content a:hover {
-	background-color: #ddd;
-}
-
-.dropdown:hover .dropdown-content {
-	display: block;
-}
-</style>
+<link rel="stylesheet" type="text/css" href="resources/navBar.css">
 </head>
 <body>
 	<div class="nav-bar">
-		<nav>
-			<a href="">Profile</a> |
-			<!-- <a href="/css/">CSS</a> |
-                <a href="/js/">JavaScript</a> |
-                <a href="/python/">Python</a> -->
+		<nav style="float: right;">
+			<a href="/">Home</a>
+			<c:choose>
+				<c:when test="${user != null}">
+					<div class="dropdown">
+						<a href="#">Your Account</a>
+						<div class="dropdown-content">
+							<a href="/userProfile">Profile</a> <a href="/invalidate/session">Logout</a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<a href="/loginform">Login</a>
+				</c:otherwise>
+			</c:choose>
 		</nav>
 	</div>
 
