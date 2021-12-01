@@ -101,15 +101,27 @@ body {
 .dropdown:hover .dropdown-content {
 	display: block;
 }
+
 </style>
 </head>
 <body>
 	<div class="nav-bar">
 		<nav>
-			<a href="/userInfo">Profile</a> |
-			<!-- <a href="/css/">CSS</a> |
-                <a href="/js/">JavaScript</a> |
-                <a href="/python/">Python</a> -->
+			<a href="/">Home</a> |
+			<c:choose>
+				<c:when test="${user != null}">
+					<div class="dropdown">
+						<a>Your Account</a>
+						<div class="dropdown-content">
+							<a href="/userInfo">Profile</a>
+							<a href="/invalidate/session">Logout</a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<a href="/loginform">Login</a>
+				</c:otherwise>
+			</c:choose>
 		</nav>
 	</div>
 

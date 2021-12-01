@@ -31,19 +31,30 @@ public class user_controller {
 	public user_model setupAddForm() {
 		return new user_model();
 	}
-	
+
 	@Autowired
 	public MenuDAOImpl menuDAO;
-	
+
 	@Autowired
 	public RecipeDAOImpl recipeDAO;
-	
+
 	public Recipe_model setupAddRecipeForm() {
 		return new Recipe_model();
 	}
-	
+
 	@GetMapping("/")
-	public String startPage() {
+	public String startPage(Model model, HttpSession session) {
+		ArrayList<Menu_model> allMenus = new ArrayList<Menu_model>();
+		allMenus = menuDAO.getAllMenu();
+		model.addAttribute("allMenus", allMenus);
+
+		ArrayList<Recipe_model> allRecipes = new ArrayList<Recipe_model>();
+		allRecipes = recipeDAO.getAllRecipes();
+		model.addAttribute("allRecipes", allRecipes);
+
+		String userName = (String) session.getAttribute("userName");
+		model.addAttribute("user", userName);
+
 		return "index";
 	}
 
@@ -56,7 +67,7 @@ public class user_controller {
 
 	@PostMapping("/login")
 	public String doLogin(@ModelAttribute("user") user_model findUser, Model model, HttpSession session) {
-		
+
 		String password = getMd5(findUser.getUserPassword());
 
 		user_model currentUser = userDAO.getUserByUserNamePassword(findUser.getUserName(), password);
@@ -71,12 +82,31 @@ public class user_controller {
 			session.setAttribute("userName", currentUser.getUserName());
 			session.setAttribute("password", getMd5(findUser.getUserPassword()));
 			model.addAttribute("message", "Hello " + currentUser.getFirstName() + " " + currentUser.getLastName());
-			return "redirect:/userInfo";
+			return "redirect:/";
+		}
+	}
+	
+	@GetMapping("/userProfile")
+	public String showUser(Model model, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		String password = (String) session.getAttribute("password");
+
+		if (userName.equals("") || password.equals("")) {
+			return "redirect:/";
+		} else {
+			if (userDAO.checkExistUser(userName) > 0) {
+
+				return "userProfile";
+
+			} else {
+				return "redirect:/loginform";
+			}
+
 		}
 	}
 	
 	@GetMapping("/userInfo")
-	public String showUser(Model model, HttpSession session) {
+	public String showUserInfo(Model model, HttpSession session) {
 
 		String userName = (String) session.getAttribute("userName");
 		String password = (String) session.getAttribute("password");
@@ -87,18 +117,18 @@ public class user_controller {
 			if (userDAO.checkExistUser(userName) > 0) {
 				user_model user = userDAO.getUserByUserNamePassword(userName, password);
 				model.addAttribute("user", user);
-				
+
 				Integer userID = (Integer) session.getAttribute("userid");
-				
+
 				ArrayList<Menu_model> userMenus = new ArrayList<Menu_model>();
-				userMenus = menuDAO.getAllUserMenu(userID);			
+				userMenus = menuDAO.getAllUserMenu(userID);
 				model.addAttribute("userMenus", userMenus);
 				session.removeAttribute("currentMenuID");
-				
+
 				ArrayList<Recipe_model> userRecipes = new ArrayList<Recipe_model>();
-				userRecipes = recipeDAO.getAllUserRecipe(userID);			
+				userRecipes = recipeDAO.getAllUserRecipe(userID);
 				model.addAttribute("userRecipes", userRecipes);
-				
+
 				return "userInfo";
 
 			} else {
@@ -123,20 +153,12 @@ public class user_controller {
 	@PostMapping("/users/create")
 	public String createUsers(@ModelAttribute("user") user_model createUser, Model model, HttpSession session) {
 		if (userDAO.checkExistUser(createUser.getUserName()) > 0) {
-			session.setAttribute("loginmessage", "UserName is already exist.");
+			session.setAttribute("loginmessage",
+					"You indicated you are a new customer, but an account already exists with the userName "
+							+ String.format("<b>%s</b>", createUser.getUserName()));
 			return "redirect:/register";
 		}
-		
-		if (createUser.getUserName() == null || createUser.getUserName().isEmpty()) {
-			session.setAttribute("usernamemessage", "Your UserName cannot be empty");
-			return "redirect:/register";
-		}
-		
-		if (createUser.getUserPassword() == null || createUser.getUserPassword().isEmpty()) {
-			session.setAttribute("passwordmessage", "Your password cannot be empty");
-			return "redirect:/register";
-		}
-		
+
 		createUser.setUserPassword(getMd5(createUser.getUserPassword()));
 		userDAO.createUser(createUser);
 		session.removeAttribute("loginmessage");
@@ -194,7 +216,7 @@ public class user_controller {
 		return "redirect:/userInfo";
 	}
 
-	@PostMapping("/invalidate/session")
+	@GetMapping("/invalidate/session")
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/";

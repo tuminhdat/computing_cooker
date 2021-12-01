@@ -88,7 +88,7 @@
 
 	<br>
 
-	<a href="/userInfo"><input type="button" value="Finish"></a>
+	<a href="/userProfile/menu/list"><input type="button" value="Finish"></a>
 
 	<h2>Pick Recipe</h2>
 

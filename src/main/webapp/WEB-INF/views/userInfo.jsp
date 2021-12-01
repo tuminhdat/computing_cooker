@@ -15,9 +15,75 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
+<style type="text/css">
+body {
+	padding: 10px;
+}
+
+.nav-bar {
+	background-color: orange;
+	padding: 30px;
+	font-weight: bold;
+}
+
+.error {
+	color: red;
+	font-style: italics;
+}
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+	height: 1%;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+</style>
 <title>Profile</title>
 </head>
 <body>
+	<div class="nav-bar">
+		<nav style="float: right;">
+			<a href="/">Home</a>
+			<c:choose>
+				<c:when test="${user != null}">
+					<div class="dropdown">
+						<a href="#">Your Account</a>
+						<div class="dropdown-content">
+							<a href="/userProfile">Profile</a> <a href="/invalidate/session">Logout</a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<a href="/loginform">Login</a>
+				</c:otherwise>
+			</c:choose>
+		</nav>
+	</div>
+
+	<h1 style="text-align: center">${user.userName}</h1>
 	<table class="table table-striped">
 		<tr>
 			<th>LastName</th>
@@ -39,84 +105,12 @@
 			<th>Description</th>
 			<td>${user.getDescription()}</td>
 		</tr>
-		<tr>
-			<th>UserName</th>
-			<td>${user.getUserName()}</td>
-		</tr>
 	</table>
 
 	<form action="/userInfo/editform" method="POST">
 		<input type="submit" value="Edit Profile" class="btn btn-success" />
 	</form>
-	<hr>
-	<h1 style="text-align: center">RECIPES - <a href="${pageContext.request.contextPath}/recipe/list"
-			class="btn btn-primary">All Recipe List</a></h1>
-	
-	<h2>
-		My recipe <a href="${pageContext.request.contextPath}/recipe/add"
-			class="btn btn-primary">Add new recipe</a>
-	</h2>
 
-	<table class="table table-striped">
-		<thead>
-			<th>Recipe Title</th>
-			<th>Description</th>
-			<th>Author</th>
-			<th>Edit</th>
-			<th>Delete</th>
-		</thead>
-
-		<tbody>
-			<!-- Garbage Out!-->
-			<c:forEach var="s" items="${userRecipes}">
-				<tr>
-					<td><a href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}">${s.recipeTitle}</a></td>
-					<td>${s.description}</td>
-					<td>${s.author}</td>
-					<td><a href="${pageContext.request.contextPath}/recipe/edit/?id=${s.recipeID}"
-						class="btn btn-info">Edit</a></td>
-					<td><a href="${pageContext.request.contextPath}/recipe/delete/?id=${s.recipeID}"
-						class="btn btn-danger">Delete</a></td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-	
-	<hr>
-	<h1 style="text-align: center">MENU - <a href=""
-			class="btn btn-primary">All Menu List</a></h1>
-	<h2>
-		My menu <a href="${pageContext.request.contextPath}/menu/create/menuform"
-			class="btn btn-primary">Add new menu</a>
-	</h2>
-	
-	<table class="table table-striped">
-		<thead>
-			<th>Menu Title</th>
-			<th>Edit</th>
-			<th>Delete</th>
-		</thead>
-
-		<tbody>
-			<c:forEach var="m" items="${userMenus}">
-
-				<tr>
-					<td><a
-						href="${pageContext.request.contextPath}/menu/view/?menuid=${m.getMenuID()}">${m.getMenuTitle()}</a></td>
-					<td><a
-						href="${pageContext.request.contextPath}/menu/editform/?menuid=${m.getMenuID()}"
-						class="btn btn-info">Edit</a></td>
-					<td><a
-						href="${pageContext.request.contextPath}/menu/delete/?menuid=${m.getMenuID()}"
-						class="btn btn-danger">Delete</a></td>
-				</tr>
-			</c:forEach>
-		</tbody>
-	</table>
-
-	<form action="/invalidate/session" method="post">
-		<input type="submit" value="Log out" class="btn btn-danger" />
-	</form>
 
 	<!-- Optional JavaScript; choose one of the two! -->
 

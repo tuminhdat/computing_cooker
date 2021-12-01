@@ -2,6 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <!doctype html>
@@ -17,7 +18,8 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<title>Home</title>
+
+<title>Recipe List</title>
 <style type="text/css">
 body {
 	padding: 10px;
@@ -84,60 +86,51 @@ body {
 			</c:choose>
 		</nav>
 	</div>
-
-
 	<div class="container">
 
-		<c:if test="${ messages !=null }">
+		<h2 style="text-align: center">RECIPES</h2>
 
-			<c:forEach var="message" items="${messages}">
+		<h3>
+			My recipe <a href="${pageContext.request.contextPath}/recipe/add"
+				class="btn btn-primary">Add new recipe</a>
+		</h3>
 
-				<div class="alert alert-success fade show" role="alert">${message}</div>
-
-			</c:forEach>
-
-		</c:if>
-		<h2>Recipe List</h2>
 		<table class="table table-striped">
 			<thead>
 				<th>Recipe Title</th>
-				<th>Description</th>
-				<th>Author</th>
+				<th>Edit</th>
+				<th>Delete</th>
 			</thead>
 
 			<tbody>
 				<!-- Garbage Out!-->
-				<c:forEach var="s" items="${allRecipes}">
-
+				<c:forEach var="s" items="${userRecipes}">
 					<tr>
 						<td><a
 							href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}">${s.recipeTitle}</a></td>
-						<td>${s.description}</td>
-						<td>${s.author}</td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<hr>
-		<h2>Menu List</h2>
-		<table class="table table-striped">
-			<thead>
-				<th>Menu Title</th>
-				<th>Description</th>
-			</thead>
-
-			<tbody>
-				<!-- Garbage Out!-->
-				<c:forEach var="m" items="${allMenus}">
-
-					<tr>
 						<td><a
-							href="${pageContext.request.contextPath}/menu/view/?menuid=${m.getMenuID()}">${m.getMenuTitle()}</a></td>
-						<td>${m.description}</td>
+							href="${pageContext.request.contextPath}/recipe/edit/?id=${s.recipeID}"
+							class="btn btn-info">Edit</a></td>
+						<td><a
+							href="${pageContext.request.contextPath}/recipe/delete/?id=${s.recipeID}"
+							class="btn btn-danger">Delete</a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</div>
+	<!-- Optional JavaScript; choose one of the two! -->
+
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous"></script>
+
+	<!-- Option 2: Separate Popper and Bootstrap JS -->
+	<!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+    -->
 </body>
 </html>

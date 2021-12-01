@@ -108,7 +108,21 @@ body {
 <body>
 	<div class="nav-bar">
 		<nav>
-			<a href="/userInfo">Profile</a> |
+			<a href="/">Home</a> |
+			<c:choose>
+				<c:when test="${user != null}">
+					<div class="dropdown">
+						<a href="#">Your Account</a>
+						<div class="dropdown-content">
+							<a href="/userInfo">Profile</a>
+							<a href="/invalidate/session">Logout</a>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<a href="/loginform">Login</a>
+				</c:otherwise>
+			</c:choose>
 		</nav>
 	</div>
 
@@ -181,13 +195,15 @@ body {
 
 	</c:forEach>
 
-	<div class="comment-container">
-		<form:form
-			action="${pageContext.request.contextPath}/comment/recipe/add"
-			method="POST" class="form-horizontal" modelAttribute="comment">
-			<form:input type="text" class="form-control" path="Content" />
-			<form:button type="submit" class="btn btn-primary">Submit</form:button>
-		</form:form>
-	</div>
+	<c:if test="${user != null}">
+		<div class="comment-container">
+			<form:form
+				action="${pageContext.request.contextPath}/comment/recipe/add"
+				method="POST" class="form-horizontal" modelAttribute="comment">
+				<form:input type="text" class="form-control" path="Content" />
+				<form:button type="submit" class="btn btn-primary">Submit</form:button>
+			</form:form>
+		</div>
+	</c:if>
 </body>
 </html>

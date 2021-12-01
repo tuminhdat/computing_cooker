@@ -32,7 +32,20 @@ public class Menu_controller {
 	public Menu_model setupAddForm() {
 		return new Menu_model();
 	}
+	
+	@RequestMapping("/userProfile/menu/list")
+	public String listMenu(@ModelAttribute("menu") Menu_model createMenu, Model model, HttpSession session) {
+		Integer userID = (Integer) session.getAttribute("userid");
+		
+		ArrayList<Menu_model> userMenus = new ArrayList<Menu_model>();
+		userMenus = menuDAO.getAllUserMenu(userID);
+		model.addAttribute("userMenus", userMenus);
+		session.removeAttribute("currentMenuID");
 
+		// Return the view
+		return "myMenus";
+	}
+	
 	@GetMapping("/menu/create/menuform")
 	public String getMenuCreateForm(Model model, HttpSession session) {
 		model.addAttribute("menu", new Menu_model());

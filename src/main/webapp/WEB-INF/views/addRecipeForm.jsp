@@ -11,24 +11,55 @@
 	rel="stylesheet"
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous">
-<style>
+
+<style type="text/css">
 body {
 	padding: 10px;
+}
+
+.nav-bar {
+	background-color: orange;
+	padding: 30px;
+	font-weight: bold;
 }
 
 .title1 {
 	color: #1ecbe1;
 }
 
-.nav-bar {
-	background-color: orange;
-	font-size: 30px;
-	padding: 30px;
-	font-weight: bold;
+.error {
+	color: red;
+	font-style: italics;
 }
 
-.textBox {
-	width: 100%;
+.dropdown {
+	position: relative;
+	display: inline-block;
+	height: 1%;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f1f1f1;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
 }
 </style>
 </head>
@@ -41,44 +72,44 @@ body {
                 <a href="/python/">Python</a> -->
 		</nav>
 	</div>
-	
-	
+
+
 	<div class="container">
 		<h1 class="title1">Create Recipe</h1>
-	
+
 		<form:form action="${pageContext.request.contextPath}/recipe/add"
-				method="POST" class="form-horizontal" modelAttribute="recipe">
-	
-				<div class="mb-3">
-					Recipe Title
-					<form:input type="text" class="form-control" path="RecipeTitle" />
-				</div>
-				<div class="mb-3">
-					Description
-					<form:input type="text" class="form-control" path="Description" />
-				</div>
-				<div class="mb-3">
-					Preparation Time
-					<form:input type="number" class="form-control" path="PrepTime" />
-				</div>
-				<div class="mb-3">
-					Total Time
-					<form:input type="number" class="form-control" path="TotalTime" />
-				</div>
-				<div class="mb-3">
-					NumServe
-					<form:input type="number" class="form-control" path="NumServe" />
-				</div>
-				<div class="mb-3">
-					Ingredient
-					<form:input type="text" class="form-control" path="Ingredient" />
-				</div>
-				<div class="mb-3">
-					Preparation
-					<form:input type="text" class="form-control" path="Preparation" />
-				</div>
-				<form:button type="submit" class="btn btn-primary">Submit</form:button>
-			</form:form>
+			method="POST" class="form-horizontal" modelAttribute="recipe">
+
+			<div class="mb-3">
+				Recipe Title
+				<form:input type="text" class="form-control" path="RecipeTitle" />
+			</div>
+			<div class="mb-3">
+				Description
+				<form:input type="text" class="form-control" path="Description" />
+			</div>
+			<div class="mb-3">
+				Preparation Time
+				<form:input type="number" class="form-control" path="PrepTime" />
+			</div>
+			<div class="mb-3">
+				Total Time
+				<form:input type="number" class="form-control" path="TotalTime" />
+			</div>
+			<div class="mb-3">
+				NumServe
+				<form:input type="number" class="form-control" path="NumServe" />
+			</div>
+			<div class="mb-3">
+				Ingredient
+				<form:input type="text" class="form-control" path="Ingredient" />
+			</div>
+			<div class="mb-3">
+				Preparation
+				<form:input type="text" class="form-control" path="Preparation" />
+			</div>
+			<form:button type="submit" class="btn btn-primary">Submit</form:button>
+		</form:form>
 	</div>
 </body>
 </html>

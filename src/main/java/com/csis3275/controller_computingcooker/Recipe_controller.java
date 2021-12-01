@@ -26,41 +26,26 @@ public class Recipe_controller {
 
 	@Autowired
 	public MenuDAOImpl menuDAO;
-	
+
 	@Autowired
 	public CommentDAOImpl commentDAO;
-	
-	@Autowired 
+
+	@Autowired
 	public userDAOImpl userDAO;
-	
+
 	public Recipe_model setupAddForm() {
 		return new Recipe_model();
 	}
 
-	@RequestMapping("/recipe/list")
+	@RequestMapping("/userProfile/recipe/list")
 	public String listRecipes(@ModelAttribute("recipe") Recipe_model createRecipe, Model model, HttpSession session) {
-		String userName = (String) session.getAttribute("userName");
+		Integer userID = (Integer) session.getAttribute("userid");
+		ArrayList<Recipe_model> userRecipes = new ArrayList<Recipe_model>();
+		userRecipes = recipeDAOImpl.getAllUserRecipe(userID);
+		model.addAttribute("userRecipes", userRecipes);
 
-		if (userName == null) {
-			return "redirect:/loginform";
-		} else {
-			ArrayList<Recipe_model> allRecipes = new ArrayList<Recipe_model>();
-
-			allRecipes = recipeDAOImpl.getAllRecipes();
-
-			ArrayList<String> messages = (ArrayList<String>) session.getAttribute("messages");
-
-			// Add in the messages, if the api is blank.
-			model.addAttribute("messages", messages != null ? messages : new ArrayList<String>());
-
-			model.addAttribute("allRecipes", allRecipes);
-			// Clear the messages before the returning
-			session.removeAttribute("messages");
-
-			// Return the viewc
-			return "allRecipes";
-		}
-
+		// Return the view
+		return "myRecipes";
 	}
 
 	@GetMapping("/recipe/add")
@@ -88,7 +73,7 @@ public class Recipe_controller {
 
 		session.setAttribute("messages", messages);
 
-		return "redirect:/userInfo";
+		return "redirect:/userProfile/recipe/list";
 	}
 
 	@GetMapping("/recipe/edit/")
@@ -146,29 +131,25 @@ public class Recipe_controller {
 	public String viewRecipe(@RequestParam(required = true) int id, Model model, HttpSession session) {
 
 		String userName = (String) session.getAttribute("userName");
-		
-		if (userName == null) {
-			return "redirect:/loginform";
-		} else {
-			session.setAttribute("recipeID", id);
-			
-			Recipe_model selectedRecipe = recipeDAOImpl.getRecipeById(id);
-			model.addAttribute("selectedRecipe", selectedRecipe);
-			
-			Integer userID = (Integer) session.getAttribute("userid");
-			
-			model.addAttribute("user", userName);
-			
-			ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
-			
-			allComments = commentDAO.getCommentByRecipeID(id);
-			
-			model.addAttribute("allComments", allComments);
-			
-			model.addAttribute("comment", new Comment_model());
-			
-			return "viewRecipe";
-		}
 
+		session.setAttribute("recipeID", id);
+
+		Recipe_model selectedRecipe = recipeDAOImpl.getRecipeById(id);
+		model.addAttribute("selectedRecipe", selectedRecipe);
+
+		Integer userID = (Integer) session.getAttribute("userid");
+		
+		model.addAttribute("user", userName);
+
+		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
+
+		allComments = commentDAO.getCommentByRecipeID(id);
+
+		model.addAttribute("allComments", allComments);
+
+		model.addAttribute("comment", new Comment_model());
+
+		return "viewRecipe";
 	}
+
 }

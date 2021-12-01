@@ -21,57 +21,16 @@
 <title>Register</title>
 </head>
 <body>
-	<div class="container">
-		<h1>Registration form</h1>
-
-		<table class="table table-striped">
-
-			</tbody>
-		</table>
-		<h3>Required Information</h3>
-		<form:form action="${pageContext.request.contextPath}/users/create"
-			method="POST" cssClass="form-horizontal" modelAttribute="user">
-
-			<div class="mb-3">
-				<p>${loginmessage}</p>
-				<p>${usernamemessage}</p>
-				User Name
-				<form:input type="text" class="form-control" path="userName" />
+	<div class="card text-center" style="width: 30%; margin: auto;">
+		<div class="card text-center" style="border: 1px solid red; width: 60%; margin: auto">
+			<div class="card-body">
+				<h5 class="card-title">UserName already in use</h5>
+				<p class="card-text">${loginmessage}</p>
 			</div>
-			<div class="mb-3">
-			<p>${passwordmessage}</p>
-				User Password
-				<form:input type="password" class="form-control" path="userPassword" />
-			</div>
-			<div class="mb-3">
-				First Name
-				<form:input type="text" class="form-control" path="firstName" />
-			</div>
-
-			<div class="mb-3">
-				Last Name
-				<form:input type="text" class="form-control" path="lastName" />
-			</div>
-
-			<div class="mb-3">
-				Age
-				<form:input type="Number" class="form-control" path="age" />
-			</div>
-			<div class="mb-3">
-				Email
-				<form:input type="email" class="form-control" path="email" />
-			</div>
-			<div class="mb-3">
-				Description
-				<form:input type="text" class="form-control" path="description" />
-			</div>
-
-
-			<form:button type="submit" cssClass="btn btn-primary">Submit</form:button>
-		</form:form>
+		</div>
+		<p>Please login if you already had an account</p>
+		<a href="/loginform">Login</a>
 	</div>
-
-
 	<!-- Optional JavaScript; choose one of the two! -->
 
 	<!-- Option 1: Bootstrap Bundle with Popper -->

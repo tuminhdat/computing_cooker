@@ -39,6 +39,7 @@ public class MenuDAOImpl {
 	private final String SQL_DELETE_RECIPE = "DELETE FROM menurecipe WHERE RecipeID = ?";
 	
 	private final String SQL_UPDATE_RECIPE_NAME = "UPDATE menurecipe SET RecipeTitle = ? WHERE RecipeID = ?";
+	private final String SQL_GET_ALL_MENU = "SELECT * FROM menus";
 
 	
 
@@ -56,6 +57,12 @@ public class MenuDAOImpl {
 		ArrayList<Recipe_model> allRecipes = new ArrayList<Recipe_model>();
 		allRecipes = (ArrayList<Recipe_model>) jdbcTemplate.query(SQL_GET_ALL_RECIPE, new RecipeRowMapper_computingcooker());
 		return allRecipes;
+	}
+	
+	public ArrayList<Menu_model> getAllMenu() {
+		ArrayList<Menu_model> allMenus = new ArrayList<Menu_model>();
+		allMenus = (ArrayList<Menu_model>) jdbcTemplate.query(SQL_GET_ALL_MENU, new MenuRowMapper_computingcooker());
+		return allMenus;
 	}
 	
 	public boolean addRecipeToMenu(int recipeID, int menuID, String RecipeTitle) {
