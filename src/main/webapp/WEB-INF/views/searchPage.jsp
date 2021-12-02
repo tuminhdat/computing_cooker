@@ -82,7 +82,7 @@
 		</div>
 	</nav>
 
-	<h5 style="padding: 10px">${numResult}result(s)</h5>
+	<h5 style="padding: 10px">${numResult} result(s)</h5>
 	<div class="row row-cols-1 row-cols-md-4 g-4">
 		<c:forEach var="s" items="${allRecipes}">
 			<div class="col">
