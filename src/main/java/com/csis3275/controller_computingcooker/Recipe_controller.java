@@ -52,6 +52,9 @@ public class Recipe_controller {
 	@GetMapping("/recipe/add")
 	public String addRecipe(Model model, HttpSession session) {
 		String userName = (String) session.getAttribute("userName");
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
 		model.addAttribute("user", userName);
 		model.addAttribute("recipe", new Recipe_model());
 
@@ -82,6 +85,11 @@ public class Recipe_controller {
 	@GetMapping("/recipe/edit/")
 	public String editRecipeForm(@RequestParam(required = true) int id, Model model, HttpSession session) {
 		String userName = (String) session.getAttribute("userName");
+
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
+
 		model.addAttribute("user", userName);
 		Recipe_model updatedRecipe = recipeDAOImpl.getRecipeById(id);
 		model.addAttribute("recipe", updatedRecipe);
@@ -116,6 +124,12 @@ public class Recipe_controller {
 	@GetMapping("/recipe/delete/")
 	public String deleteRecipe(@RequestParam(required = true) int id, Model model, HttpSession session) {
 
+		String userName = (String) session.getAttribute("userName");
+
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
+
 		recipeDAOImpl.deleteRecipe(id);
 		menuDAO.deleteRecipe(id);
 		commentDAO.deleteCommentRecipe(id);
@@ -134,7 +148,7 @@ public class Recipe_controller {
 		model.addAttribute("selectedRecipe", selectedRecipe);
 
 		Integer userID = (Integer) session.getAttribute("userid");
-		
+
 		model.addAttribute("user", userName);
 
 		ArrayList<Comment_model> allComments = new ArrayList<Comment_model>();
