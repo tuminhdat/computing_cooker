@@ -31,14 +31,13 @@ public class Search_controller {
 	
 	@GetMapping("/searching")
 	public String doSearch(@RequestParam(name="item", required = true) String item, Model model, HttpSession session) {
-		
+		String userName = (String) session.getAttribute("userName");
+		model.addAttribute("user", userName);
 		if (item.length() == 0) {
 			model.addAttribute("allRecipes", null);
-			model.addAttribute("userLogin", session.getAttribute("userid"));
 			model.addAttribute("numResult", 0);
 		} else {
 			model.addAttribute("allRecipes", implementSearch(item));
-			model.addAttribute("userLogin", session.getAttribute("userid"));
 			model.addAttribute("numResult", implementSearch(item).size());
 		}
 
