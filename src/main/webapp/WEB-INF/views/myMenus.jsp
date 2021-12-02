@@ -49,6 +49,17 @@
 							<li class="nav-item dropdown"><a
 								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 								role="button" data-bs-toggle="dropdown" aria-expanded="false">
+									Recipe </a>
+								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<li><a class="dropdown-item"
+										href="/userProfile/recipe/list">My Recipe</a></li>
+									<li><a class="dropdown-item"
+										href="${pageContext.request.contextPath}/recipe/add">Add
+											Recipe</a></li>
+								</ul></li>
+							<li class="nav-item dropdown"><a
+								class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+								role="button" data-bs-toggle="dropdown" aria-expanded="false">
 									Your Account </a>
 								<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<li><a class="dropdown-item" href="/userProfile">Profile</a></li>

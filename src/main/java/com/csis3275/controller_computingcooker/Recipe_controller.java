@@ -116,9 +116,9 @@ public class Recipe_controller {
 	@GetMapping("/recipe/delete/")
 	public String deleteRecipe(@RequestParam(required = true) int id, Model model, HttpSession session) {
 
-		Recipe_model recipe = recipeDAOImpl.getRecipeById(id);
 		recipeDAOImpl.deleteRecipe(id);
 		menuDAO.deleteRecipe(id);
+		commentDAO.deleteCommentRecipe(id);
 
 		return "redirect:/userProfile/recipe/list";
 	}

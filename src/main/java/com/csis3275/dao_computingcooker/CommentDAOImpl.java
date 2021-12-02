@@ -22,6 +22,8 @@ public class CommentDAOImpl {
 	private final String SELECT_COMMENT_BY_ID = "SELECT * FROM comments WHERE CommentID = ?";
 	private final String SQL_GET_ALL_COMMENTS_BY_MENUID = "SELECT * FROM comments Where MenuID = ?";
 	private final String SQL_UPDATE_COMMENT = "UPDATE comments SET Content = ? WHERE CommentID = ?";
+	private final String SQL_DELETE_COMMENT_RECIPE = "DELETE FROM comments WHERE RecipeID = ?";
+	private final String SQL_DELETE_COMMENT_MENU = "DELETE FROM comments WHERE MenuID = ?";
 
 	@Autowired
 	public CommentDAOImpl(DataSource dataSource) {
@@ -52,6 +54,14 @@ public class CommentDAOImpl {
 	
 	public boolean deleteComment(int id) {
 		return jdbcTemplate.update(SQL_DELETE_COMMENT, id) > 0;
+	}
+	
+	public boolean deleteCommentRecipe(int id) {
+		return jdbcTemplate.update(SQL_DELETE_COMMENT_RECIPE, id) > 0;
+	}
+	
+	public boolean deleteCommentMenu(int id) {
+		return jdbcTemplate.update(SQL_DELETE_COMMENT_MENU, id) > 0;
 	}
 	
 	public boolean updateComment(Comment_model comment) {
