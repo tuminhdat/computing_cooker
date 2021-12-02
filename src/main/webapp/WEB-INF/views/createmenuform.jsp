@@ -110,9 +110,9 @@ body {
 	<h1 class="title1">Create Menu</h1>
 
 	<form action="/menu/create/addmenu" method="post" modelAttribute="menu">
-		<label for="MenuTitle">Menu Title :</label> <br> <input
+		<label for="MenuTitle">Menu Title:</label> <span style="color:red">${titlemessage }</span><br> <input
 			type="text" class="textBox" name="MenuTitle"> <br> <label
-			for="Description">Menu Description :</label> <br>
+			for="Description">Menu Description:</label> <span style="color:red">${descriptionmessage }</span><br>
 
 		<textarea class="textBox" name="Description" rows="4"></textarea>
 
