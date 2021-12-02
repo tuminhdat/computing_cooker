@@ -39,6 +39,8 @@ public class MenuDAOImpl {
 	private final String SQL_DELETE_RECIPE = "DELETE FROM menurecipe WHERE RecipeID = ?";
 	
 	private final String SQL_UPDATE_RECIPE_NAME = "UPDATE menurecipe SET RecipeTitle = ? WHERE RecipeID = ?";
+	
+	private final String SQL_GET_USERID_BY_MENUID = "SELECT * FROM menus WHERE MenuID = ?";
 
 	
 
@@ -109,5 +111,9 @@ public class MenuDAOImpl {
 	
 	public boolean editMenuRecipeTitle(int recipeID, String recipeTitle) {
 		return jdbcTemplate.update(SQL_UPDATE_RECIPE_NAME, recipeTitle, recipeID) > 0;
+	}
+	
+	public Menu_model getUserIdByMenuId(int menuID) {
+		return jdbcTemplate.queryForObject(SQL_GET_USERID_BY_MENUID, new Object[] {menuID}, new MenuRowMapper_computingcooker());
 	}
 }

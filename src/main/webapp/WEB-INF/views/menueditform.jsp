@@ -36,9 +36,9 @@ body {
 	<h1 class="title1">Edit Menu</h1>
 
 	<form action="/menu/edit" method="post" modelAttribute="menu">
-		<label for="MenuTitle">Menu Title :</label> <br> <input
+		<label for="MenuTitle">Menu Title:</label> <span style="color:red">${titlemessage }</span><br> <input
 			type="text" class="textBox" value="${menu.getMenuTitle()}" name="MenuTitle">
-		<br> <label for="Description">Menu Description :</label> <br>
+		<br> <label for="Description">Menu Description:</label> <span style="color:red">${descriptionmessage }</span><br>
 
 		<textarea class="textBox"
 			name="Description" rows="4">${menu.getDescription()}</textarea>

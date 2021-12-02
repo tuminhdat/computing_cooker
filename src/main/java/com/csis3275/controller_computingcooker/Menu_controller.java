@@ -30,23 +30,61 @@ public class Menu_controller {
 
 	@GetMapping("/menu/create/menuform")
 	public String getMenuCreateForm(Model model, HttpSession session) {
+		Object userName = session.getAttribute("userName");
+
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
 		model.addAttribute("menu", new Menu_model());
+		model.addAttribute("titlemessage", session.getAttribute("errorMenuTitle"));
+		model.addAttribute("descriptionmessage", session.getAttribute("errorMenuDescription"));
 		return "createmenuform";
 	}
 
 	@RequestMapping("/menu/create/addmenu")
 	public String doAddMenu(@ModelAttribute("menu") Menu_model menu, Model model, HttpSession session) {
+		Object userName = session.getAttribute("userName");
+
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
+		boolean error = false;
+		if (menu.getMenuTitle().length() == 0) {
+			String message = "Please enter Menu Title";
+			session.setAttribute("errorMenuTitle", message);
+			error = true;
+		}
+		
+		if (menu.getDescription().length() == 0) {
+			String message = "Please enter Description";
+			session.setAttribute("errorMenuDescription", message);
+			error = true;
+		}
+		
+		if (error) {
+			return "redirect:/menu/create/menuform";
+		}
+		
 		Integer userID = (Integer) session.getAttribute("userid");
 		menu.setUserID(userID);
 		menuDAO.createMenu(menu);
 		Integer menuID = menuDAO.getMenuByUserIDAndTitle(userID, menu.getMenuTitle()).getMenuID();
 		session.setAttribute("currentMenuID", menuID);
+		
+		session.removeAttribute("errorMenuTitle");
+		session.removeAttribute("errorMenuDescription");
+		
 		return "redirect:/menu/recipe";
 	}
 
 	@RequestMapping("/menu/create/recipe/add")
 	public String doAddRecipeToMenu(@RequestParam(required = true) int recipeid,
 			@RequestParam(required = true) String recipetitle, Model model, HttpSession session) {
+		Object userName = session.getAttribute("userName");
+
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
 		Integer menuid = (Integer) session.getAttribute("currentMenuID");
 		menuDAO.addRecipeToMenu(recipeid, menuid, recipetitle);
 		return "redirect:/menu/recipe";
@@ -55,6 +93,11 @@ public class Menu_controller {
 	@RequestMapping("/menu/create/recipe/delete")
 	public String doDeleteRecipeFromMenu(@RequestParam(required = true) int recipeid, Model model,
 			HttpSession session) {
+		Object userName = session.getAttribute("userName");
+
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
 		Integer menuid = (Integer) session.getAttribute("currentMenuID");
 		menuDAO.deleteMenuRecipe(menuid, recipeid);
 		return "redirect:/menu/recipe";
@@ -62,6 +105,11 @@ public class Menu_controller {
 
 	@GetMapping("/menu/recipe")
 	public String getAllRecipeInMenu(Model model, HttpSession session) {
+		Object userName = session.getAttribute("userName");
+
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
 		Integer menuID = (Integer) session.getAttribute("currentMenuID");
 
 		ArrayList<Recipe_model> notAddedRecipe = new ArrayList<Recipe_model>();
@@ -97,22 +145,74 @@ public class Menu_controller {
 	
 	@RequestMapping("/menu/delete")
 	public String doDeleteMenu(@RequestParam(required = true) int menuid, Model model, HttpSession session) {
+		Object userName = session.getAttribute("userName");
+		
+
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
+		
+		Menu_model menuOwner = menuDAO.getUserIdByMenuId(menuid);
+		Integer userID = (Integer) session.getAttribute("userid");
+		if (menuOwner.getUserID() != userID) {
+			return "redirect:/";
+		}
 		menuDAO.deleteMenu(menuid);
 		return "redirect:/userInfo";
 	}
 	
 	@RequestMapping("/menu/editform")
 	public String getEditForm(@RequestParam(required = true) int menuid, Model model, HttpSession session) {
+		Menu_model menuOwner = menuDAO.getUserIdByMenuId(menuid);
+		Integer userID = (Integer) session.getAttribute("userid");
+		if (menuOwner.getUserID() != userID) {
+			return "redirect:/";
+		}
 		session.setAttribute("currentMenuID", menuid);
 		Menu_model menu = menuDAO.getMenuByID(menuid);
 		model.addAttribute("menu", menu);
+		model.addAttribute("titlemessage", session.getAttribute("errorMenuTitle"));
+		model.addAttribute("descriptionmessage", session.getAttribute("errorMenuDescription"));
 		return "menueditform";
 	}
 	
 	@RequestMapping("/menu/edit")
 	public String doEditMenu(@ModelAttribute("menu") Menu_model menu, Model model, HttpSession session) {
+		Object userName = session.getAttribute("userName");
 		Integer menuid = (Integer) session.getAttribute("currentMenuID");
+
+		if (userName == null) {
+			return "redirect:/loginform";
+		}
+		
+		Menu_model menuOwner = menuDAO.getUserIdByMenuId(menuid);
+		Integer userID = (Integer) session.getAttribute("userid");
+		if (menuOwner.getUserID() != userID) {
+			return "redirect:/";
+		}
+		
+		boolean error = false;
+		if (menu.getMenuTitle().length() == 0) {
+			String message = "Please enter Menu Title";
+			session.setAttribute("errorMenuTitle", message);
+			error = true;
+		}
+		
+		if (menu.getDescription().length() == 0) {
+			String message = "Please enter Description";
+			session.setAttribute("errorMenuDescription", message);
+			error = true;
+		}
+		
+		if (error) {
+			return "redirect:/menu/editform/?menuid=" + menuid;
+		}
+		
 		menuDAO.editMenu(menuid, menu.getMenuTitle(), menu.getDescription());
+		
+		session.removeAttribute("errorMenuTitle");
+		session.removeAttribute("errorMenuDescription");
+		
 		return "redirect:/menu/recipe";
 	}
 }

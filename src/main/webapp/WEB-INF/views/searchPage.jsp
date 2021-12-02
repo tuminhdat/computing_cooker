@@ -1,5 +1,8 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <!doctype html>
@@ -8,33 +11,16 @@
 <!-- Required meta tags -->
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Bootstrap CSS -->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
 <style>
-#myTable {
-	border-collapse: collapse;
-	width: 100%;
-	border: 1px solid #ddd;
-	font-size: 18px;
-}
-
-#myTable th, #myTable td {
-	text-align: left;
-	padding: 12px;
-}
-
-#myTable tr {
-	border-bottom: 1px solid #ddd;
-}
-
-#myTable tr.header, #myTable tr:hover {
-	background-color: #f1f1f1;
-}
-
 body {
 	padding: 10px;
-}
-
-.title1 {
-	color: #1ecbe1;
 }
 
 .nav-bar {
@@ -44,15 +30,12 @@ body {
 	font-weight: bold;
 }
 
-.textBox {
-	width: 100%;
+#linkbar {
+	float: left;
 }
 
 #item {
-	
-}
-#linkbar {
-	float: left;
+	margin-left: 10px;
 }
 </style>
 </head>
@@ -69,8 +52,24 @@ body {
 		</nav>
 		<form action="/searching" method="GET" class="form-horizontal">
 			<input type="text" id="item" placeholder="Search for... " name="item">
-			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="submit">Search</button>
 		</form>
 	</div>
+
+	<table class="table table-striped">
+		<thead>
+			<th>There is <span>${numResult}</span> result
+			</th>
+		</thead>
+		<tbody>
+			<c:forEach var="s" items="${allRecipes}">
+				<tr>
+					<td><a
+						href="${pageContext.request.contextPath}/recipe/view/?id=${s.recipeID}">${s.recipeTitle}</a></td>
+				</tr>
+			</c:forEach>
+		</tbody>
+	</table>
+
 </body>
 </html>
